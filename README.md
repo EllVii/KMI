@@ -18,4 +18,5 @@ This is a working prototype only. Donation/payment processing should use a trust
 
 Final 508(c)(1)(A), religious trust, nonprofit, tax, and counseling language should be reviewed by qualified legal/tax professionals before launch.
 
-Built by LV Automations.
+Built by Ell Vii's Automations.
+Website: https://ellviisautomations.com
