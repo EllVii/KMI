@@ -7,18 +7,18 @@
   `;
 
   const responses = {
-    "About KMI": "At Kingdom Missions International, the heart of the ministry is to love God and serve all people by sharing the life-changing Gospel of Jesus Christ. KMI provides hope, guidance, and spiritual growth through the truth of Scripture to anyone in need.",
-    "Mission": "KMI’s mission is to restore marriages and heal families through Christ-centered counseling by creating a safe, compassionate, and faith-centered space where individuals can openly express and navigate life’s challenges.",
-    "Vision": "KMI’s vision is to educate and train people in biblical truth and principles, using practical tools and spiritual wisdom while equipping others to do the same through the love of Jesus Christ in action.",
-    "Servant Leaders": "Brother Marc and Sister Helen have been married for over seven years and both have a love for God and serving others. In 1994, Marc’s grandmother shared that he should not be surprised if he were to become a preacher or pastor one day, reflecting an early sense of calling. Sister Helen, a native of the Philippines, carries a deep passion for praise, worship, giving, and service.",
-    "Resources": "KMI resources include housing referrals, food distribution, scholarship association support, life coaching, biblical counseling, and resource guides. Resource Guides are marked Coming Soon.",
-    "Housing": "KMI believes safe, stable housing is a fundamental right for every individual who has served our country or calls the community home. KMI works as a resource and referral agency for unhoused individuals and homeless veterans.",
-    "Food Distribution": "KMI’s food distribution focus is to alleviate food insecurity by providing equitable access to nutritious groceries while connecting individuals to essential social services, housing support, and financial resources.",
-    "Education": "KMI helps connect people with degree opportunities, including Associate, Bachelor’s, Master’s, and Doctorate pathways. Education may include Religion or Business degrees, plus certifications such as Chaplaincy or Biblical Counseling.",
+    "About KMI": "Kingdom Missions International is a faith-centered religious order and educational society dedicated to honoring God by serving humanity, sharing spiritual truth, and offering high-quality education. Through the wisdom of Scripture, KMI provides hope, guidance, and personal growth to individuals from all walks of life.",
+    "Mission": "Guided by faith, KMI empowers communities through counseling, education, essential resources, and vital referrals to foster hope, dignity, and self-sufficiency for all.",
+    "Vision": "KMI’s vision is to ignite hope and cultivate lasting transformation across neighborhoods, nations, and the world by building bridges of unconditional love, empathy, and active compassion.",
+    "Servant Leaders": "Marc and Helen are a living testament to faith in action. United by their love for God and their missionary calling, they serve the vulnerable, nurture spiritual growth, and help individuals flourish through Christ-centered support.",
+    "Resources": "KMI works as a dedicated referral agency and community resource center. Resources include housing support, food distribution, scholarship association support, life coaching, biblical counseling, and resource guides. Resource Guides are marked Coming Soon.",
+    "Housing": "KMI believes everyone deserves a safe, stable, and welcoming place to call home. The ministry walks alongside unhoused individuals, veterans, and community members by bridging gaps and connecting them with trusted resources.",
+    "Food Distribution": "KMI stands beside neighbors facing hunger by offering fresh, wholesome food and supportive community relationships to help people through challenging circumstances.",
+    "Education": "KMI is committed to making quality education affordable and achievable for all, with degree pathways from Associate to Doctorate and certification opportunities such as Chaplaincy and Biblical Counseling.",
     "Outreach": "KMI outreach is grounded in service, humility, and fellowship—meeting people where they are while guiding them toward healing, accountability, and sustainable growth. Outreach includes food distribution, community partners, and volunteer opportunities.",
     "Community Partners": "KMI is looking for like-minded organizations that understand teamwork and cooperation for the greater good of humanity.",
     "Volunteer Opportunities": "If you have a people-first mindset and a gentle spirit, KMI welcomes partners who want to serve in cooperation with others for the enrichment of all.",
-    "Brochure": "The KMI brochure is currently TBD and marked Coming Soon."
+    "Brochure": "The KMI brochure is coming soon."
   };
 
   const topicMap = {
