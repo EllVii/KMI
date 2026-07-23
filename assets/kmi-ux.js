@@ -147,13 +147,6 @@
     }
   });
 
-  if (!document.querySelector('script[data-kmi-chatbot]')) {
-    const chatbotScript = document.createElement('script');
-    chatbotScript.src = 'assets/chatbot.js';
-    chatbotScript.dataset.kmiChatbot = 'true';
-    document.body.appendChild(chatbotScript);
-  }
-
   const hashTopics = {
     '#get-help': 'Resources',
     '#volunteer': 'Volunteer Opportunities',
@@ -161,4 +154,18 @@
     '#contact': 'Other'
   };
   if (hashTopics[window.location.hash]) window.kmiPendingChatTopic = hashTopics[window.location.hash];
+
+  const existingChatbotScript = Array.from(document.scripts).some((script) =>
+    script.src.endsWith('/assets/chatbot.js') || script.src.endsWith('assets/chatbot.js')
+  );
+  if (!existingChatbotScript) {
+    const chatbotScript = document.createElement('script');
+    chatbotScript.src = 'assets/chatbot.js';
+    chatbotScript.dataset.kmiChatbot = 'true';
+    document.body.appendChild(chatbotScript);
+  } else if (window.kmiPendingChatTopic && typeof window.openKmiChat === 'function') {
+    const pendingTopic = window.kmiPendingChatTopic;
+    delete window.kmiPendingChatTopic;
+    window.openKmiChat(pendingTopic);
+  }
 })();
