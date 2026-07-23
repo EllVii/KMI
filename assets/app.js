@@ -343,3 +343,10 @@ if (!document.querySelector('#kmi-seo-styles')) {
   `;
   document.head.appendChild(style);
 }
+
+if (!document.querySelector('script[data-ellvii-seo-credit]')) {
+  const providerScript = document.createElement('script');
+  providerScript.src = 'assets/ellvii-seo-credit.js';
+  providerScript.dataset.ellviiSeoCredit = 'true';
+  document.body.appendChild(providerScript);
+}
