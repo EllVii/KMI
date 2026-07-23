@@ -4,6 +4,7 @@ const scriptures = {
   resources: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
   edu: ['Let the wise hear and increase in learning.', 'Proverbs 1:5'],
   outreach: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
+  connect: ['Carry each other’s burdens, and in this way you will fulfill the law of Christ.', 'Galatians 6:2'],
   brochure: ['Write the vision; make it plain.', 'Habakkuk 2:2'],
   plans: ['It is required of stewards that they be found faithful.', '1 Corinthians 4:2'],
   timeline: ['For everything there is a season, and a time for every matter under heaven.', 'Ecclesiastes 3:1']
@@ -35,7 +36,6 @@ function escapeHtml(value) {
 
 function renderSubmissions() {
   if (!table) return;
-
   const rows = JSON.parse(localStorage.getItem(storageKey) || '[]');
   table.innerHTML = rows.length
     ? rows
@@ -52,14 +52,12 @@ if (form) {
     event.preventDefault();
     const formData = new FormData(form);
     const rows = JSON.parse(localStorage.getItem(storageKey) || '[]');
-
     rows.push({
       name: formData.get('name') || '',
       email: formData.get('email') || '',
       interest: formData.get('interest') || '',
       status: 'New inquiry'
     });
-
     localStorage.setItem(storageKey, JSON.stringify(rows));
     form.reset();
     renderSubmissions();
@@ -136,6 +134,15 @@ const seoPages = {
     schemaType: 'CollectionPage',
     index: true
   },
+  connect: {
+    path: '/connect.html',
+    title: 'Get Help, Volunteer or Partner | Kingdom Missions International',
+    description:
+      'Connect with Kingdom Missions International to request resource guidance, volunteer, form a community partnership, or ask a ministry question.',
+    image: `${siteUrl}/assets/media/fellowship-community-meal.webp`,
+    schemaType: 'ContactPage',
+    index: true
+  },
   brochure: {
     path: '/brochure.html',
     title: 'KMI Ministry Brochure | Coming Soon',
@@ -185,7 +192,6 @@ function upsertMeta(selector, attributes) {
     element = document.createElement('meta');
     document.head.appendChild(element);
   }
-
   Object.entries(attributes).forEach(([name, value]) => element.setAttribute(name, value));
   return element;
 }
@@ -315,6 +321,7 @@ if (footerContainer && !footerContainer.querySelector('.footer-seo-nav')) {
     <a href="resources.html">Resources</a>
     <a href="edu.html">Education</a>
     <a href="outreach.html">Outreach</a>
+    <a href="connect.html">Connect</a>
   `;
   footerContainer.prepend(footerNav);
 }
@@ -349,4 +356,11 @@ if (!document.querySelector('script[data-ellvii-seo-credit]')) {
   providerScript.src = 'assets/ellvii-seo-credit.js';
   providerScript.dataset.ellviiSeoCredit = 'true';
   document.body.appendChild(providerScript);
+}
+
+if (!document.querySelector('script[data-kmi-ux]')) {
+  const uxScript = document.createElement('script');
+  uxScript.src = 'assets/kmi-ux.js';
+  uxScript.dataset.kmiUx = 'true';
+  document.body.appendChild(uxScript);
 }
