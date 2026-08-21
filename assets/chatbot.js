@@ -1,133 +1,120 @@
 (() => {
-  const storageKey = "kmiChatLeads";
+  if (window.__kmiSupportAssistantLoaded) return;
+  window.__kmiSupportAssistantLoaded = true;
+
+  const email = 'info@KingdomMissionsGlobal.org';
+  const topics = {
+    resources: {
+      label: 'Get help or find resources',
+      response: 'KMI provides community resource guidance and referrals related to housing, food support, life coaching, biblical counseling, scholarships, and other pathways toward stability.',
+      href: 'connect.html#get-help',
+      action: 'Request resource guidance'
+    },
+    volunteer: {
+      label: 'Volunteer with KMI',
+      response: 'KMI welcomes people who want to serve through food distribution, community outreach, fellowship, teaching, administration, and mission support.',
+      href: 'connect.html#volunteer',
+      action: 'See volunteer options'
+    },
+    partner: {
+      label: 'Become a community partner',
+      response: 'Churches, ministries, nonprofits, schools, businesses, and community programs can connect with KMI to explore cooperative service and outreach.',
+      href: 'connect.html#partner',
+      action: 'Explore partnership'
+    },
+    education: {
+      label: 'Ask about education',
+      response: 'KMI offers information about faith-based degree pathways, chaplaincy, biblical counseling, and service-centered certification opportunities.',
+      href: 'connect.html#education',
+      action: 'Ask about education'
+    },
+    outreach: {
+      label: 'Learn about outreach',
+      response: 'KMI outreach includes food relief, fellowship, volunteer service, teaching, community partnerships, and local and international mission work.',
+      href: 'outreach.html',
+      action: 'View outreach'
+    },
+    about: {
+      label: 'Learn about KMI',
+      response: 'Kingdom Missions International is a faith-centered ministry based in Las Vegas, serving communities through resources, education, outreach, referrals, and mission support.',
+      href: 'about.html',
+      action: 'About KMI'
+    }
+  };
+
   const css = `
-    .kmi-chat-toggle{position:fixed;right:18px;bottom:18px;z-index:9999;border:0;border-radius:999px;background:linear-gradient(135deg,#f8e8a5,#d5a83a 55%,#8f6420);color:#241504;font-weight:900;padding:14px 18px;box-shadow:0 18px 40px rgba(0,0,0,.25);cursor:pointer}
-    .kmi-chat{position:fixed;right:18px;bottom:76px;z-index:9999;width:min(390px,calc(100vw - 36px));background:#fffaf2;border:1px solid rgba(59,42,23,.18);border-radius:22px;box-shadow:0 22px 60px rgba(0,0,0,.28);overflow:hidden;display:none;color:#2b241b}
-    .kmi-chat.open{display:block}.kmi-chat-head{background:#2d2419;color:#f8e8a5;padding:14px 16px}.kmi-chat-head strong{display:block;font-family:Georgia,serif;font-size:18px}.kmi-chat-head span{display:block;font-size:12px;line-height:1.3;margin-top:3px;color:#fff3c4}.kmi-chat-body{padding:14px 16px;max-height:520px;overflow:auto}.kmi-chat-msg{border-radius:16px;padding:10px 12px;margin:8px 0;font-size:14px;line-height:1.35}.kmi-chat-msg.bot{background:#f1e6d4}.kmi-chat-msg.user{background:#e5eddc;margin-left:35px}.kmi-chat-msg strong{display:block;margin-bottom:4px}.kmi-chat-actions{display:grid;gap:8px;margin:10px 0}.kmi-chat-actions button{border:1px solid rgba(59,42,23,.18);background:#fff;border-radius:999px;padding:9px 10px;text-align:left;font-weight:800;cursor:pointer}.kmi-chat-actions button:hover{background:#fbf0d5}.kmi-chat-form{display:grid;gap:8px;margin-top:10px}.kmi-chat-form input,.kmi-chat-form select,.kmi-chat-form textarea{width:100%;padding:10px;border-radius:12px;border:1px solid rgba(59,42,23,.22);font:inherit}.kmi-chat-form textarea{min-height:70px}.kmi-chat-form button{border:0;border-radius:999px;padding:11px 14px;background:#3f4a35;color:#fff;font-weight:900;cursor:pointer}.kmi-chat-small{font-size:12px;color:#6b5f4e;margin-top:8px}
+    .kmi-chat-toggle{position:fixed;right:18px;bottom:18px;z-index:9999;border:0;border-radius:999px;background:linear-gradient(135deg,#f8e8a5,#d5a83a 55%,#8f6420);color:#241504;font-weight:900;padding:13px 17px;box-shadow:0 18px 40px rgba(0,0,0,.25);cursor:pointer;min-height:46px}
+    .kmi-chat{position:fixed;right:18px;bottom:78px;z-index:9999;width:min(390px,calc(100vw - 36px));max-height:min(650px,calc(100vh - 112px));background:#fffaf2;border:1px solid rgba(59,42,23,.18);border-radius:22px;box-shadow:0 22px 60px rgba(0,0,0,.28);overflow:hidden;display:none;color:#2b241b}
+    .kmi-chat.open{display:block}.kmi-chat-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#2d2419;color:#f8e8a5;padding:14px 16px}.kmi-chat-head strong{display:block;font-family:Georgia,serif;font-size:18px}.kmi-chat-head span{display:block;font-size:12px;line-height:1.35;margin-top:3px;color:#fff3c4}.kmi-chat-close{border:0;background:transparent;color:#fff3c4;font-size:24px;line-height:1;cursor:pointer;padding:2px 5px;border-radius:8px}.kmi-chat-body{padding:14px 16px;max-height:min(560px,calc(100vh - 190px));overflow:auto}.kmi-chat-msg{border-radius:16px;padding:10px 12px;margin:8px 0;font-size:14px;line-height:1.45}.kmi-chat-msg.bot{background:#f1e6d4}.kmi-chat-msg strong{display:block;margin-bottom:4px}.kmi-chat-actions{display:grid;gap:8px;margin:12px 0}.kmi-chat-actions button{border:1px solid rgba(59,42,23,.18);background:#fff;border-radius:14px;padding:10px 12px;text-align:left;font-weight:800;cursor:pointer;color:#2b241b}.kmi-chat-actions button:hover,.kmi-chat-actions button:focus-visible{background:#fbf0d5}.kmi-chat-result{margin-top:10px;padding-top:10px;border-top:1px solid rgba(59,42,23,.14)}.kmi-chat-link{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:10px 13px;background:#3f4a35;color:#fff!important;text-decoration:none;font-weight:900}.kmi-chat-secondary{display:inline-block;margin:10px 0 0;color:#563d17;font-weight:800}.kmi-chat-small{font-size:12px;color:#6b5f4e;margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(59,42,23,.12)}
+    @media(max-width:560px){.kmi-chat-toggle{right:12px;bottom:12px}.kmi-chat{right:12px;bottom:70px;width:calc(100vw - 24px)}}
+    @media(prefers-reduced-motion:reduce){.kmi-chat-toggle{scroll-behavior:auto}}
   `;
 
-  const responses = {
-    "About KMI": "Kingdom Missions International is a faith-centered religious order and educational society dedicated to honoring God by serving humanity, sharing spiritual truth, and offering high-quality education. Through the wisdom of Scripture, KMI provides hope, guidance, and personal growth to individuals from all walks of life.",
-    "Mission": "Guided by faith, KMI empowers communities through counseling, education, essential resources, and vital referrals to foster hope, dignity, and self-sufficiency for all.",
-    "Vision": "KMI’s vision is to ignite hope and cultivate lasting transformation across neighborhoods, nations, and the world by building bridges of unconditional love, empathy, and active compassion.",
-    "Servant Leaders": "Marc and Helen are a living testament to faith in action. United by their love for God and their missionary calling, they serve the vulnerable, nurture spiritual growth, and help individuals flourish through Christ-centered support.",
-    "Resources": "KMI works as a dedicated referral agency and community resource center. Resources include housing support, food distribution, scholarship association support, life coaching, biblical counseling, and resource guides. Resource Guides are marked Coming Soon.",
-    "Housing": "KMI believes everyone deserves a safe, stable, and welcoming place to call home. The ministry walks alongside unhoused individuals, veterans, and community members by bridging gaps and connecting them with trusted resources.",
-    "Food Distribution": "KMI stands beside neighbors facing hunger by offering fresh, wholesome food and supportive community relationships to help people through challenging circumstances.",
-    "Education": "KMI is committed to making quality education affordable and achievable for all, with degree pathways from Associate to Doctorate and certification opportunities such as Chaplaincy and Biblical Counseling.",
-    "Outreach": "KMI outreach is grounded in service, humility, and fellowship—meeting people where they are while guiding them toward healing, accountability, and sustainable growth. Outreach includes food distribution, community partners, and volunteer opportunities.",
-    "Community Partners": "KMI is looking for like-minded organizations that understand teamwork and cooperation for the greater good of humanity.",
-    "Volunteer Opportunities": "If you have a people-first mindset and a gentle spirit, KMI welcomes partners who want to serve in cooperation with others for the enrichment of all.",
-    "Brochure": "The KMI brochure is coming soon."
-  };
-
-  const topicMap = {
-    "About KMI": "Other",
-    "Mission": "Ministry",
-    "Vision": "Ministry",
-    "Servant Leaders": "Ministry",
-    "Resources": "Resources",
-    "Housing": "Resources",
-    "Food Distribution": "Resources",
-    "Education": "Education",
-    "Outreach": "Outreach",
-    "Community Partners": "Outreach",
-    "Volunteer Opportunities": "Outreach",
-    "Brochure": "Other"
-  };
-
-  const style = document.createElement("style");
+  const style = document.createElement('style');
   style.textContent = css;
   document.head.appendChild(style);
 
-  const toggle = document.createElement("button");
-  toggle.className = "kmi-chat-toggle";
-  toggle.textContent = "Need help?";
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'kmi-chat-toggle';
+  toggle.textContent = 'How can we help?';
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', 'kmiSupportAssistant');
 
-  const chat = document.createElement("section");
-  chat.className = "kmi-chat";
+  const chat = document.createElement('section');
+  chat.className = 'kmi-chat';
+  chat.id = 'kmiSupportAssistant';
+  chat.setAttribute('role', 'dialog');
+  chat.setAttribute('aria-label', 'KMI Support Assistant');
   chat.innerHTML = `
-    <div class="kmi-chat-head"><strong>KMI Support Assistant</strong><span>Faith-centered support, outreach, education, resources, and referrals.</span></div>
-    <div class="kmi-chat-body" id="kmiChatBody">
-      <div class="kmi-chat-msg bot">Hi, welcome to Kingdom Missions International. Choose a topic below, or send KMI your question through the form.</div>
+    <div class="kmi-chat-head">
+      <div><strong>KMI Support Assistant</strong><span>Choose what you need and we’ll point you to the right KMI page.</span></div>
+      <button class="kmi-chat-close" type="button" aria-label="Close KMI Support Assistant">×</button>
+    </div>
+    <div class="kmi-chat-body">
+      <div class="kmi-chat-msg bot">Welcome to Kingdom Missions International. What would you like help with?</div>
       <div class="kmi-chat-actions">
-        <button data-topic="About KMI">About KMI</button>
-        <button data-topic="Mission">Mission</button>
-        <button data-topic="Vision">Vision</button>
-        <button data-topic="Servant Leaders">Servant Leaders</button>
-        <button data-topic="Resources">Resources and referrals</button>
-        <button data-topic="Housing">Housing</button>
-        <button data-topic="Food Distribution">Food Distribution</button>
-        <button data-topic="Education">Education</button>
-        <button data-topic="Outreach">Outreach</button>
-        <button data-topic="Volunteer Opportunities">Volunteer Opportunities</button>
-        <button data-topic="Brochure">Brochure</button>
+        ${Object.entries(topics).map(([key, topic]) => `<button type="button" data-topic="${key}">${topic.label}</button>`).join('')}
       </div>
-      <form class="kmi-chat-form" id="kmiChatForm">
-        <input name="name" placeholder="Your name" required>
-        <input name="email" type="email" placeholder="Email" required>
-        <input name="phone" placeholder="Phone optional">
-        <select name="topic">
-          <option>Resources</option>
-          <option>Ministry</option>
-          <option>Education</option>
-          <option>Outreach</option>
-          <option>Community Partners</option>
-          <option>Volunteer Opportunities</option>
-          <option>Giving</option>
-          <option>Las Vegas Outreach</option>
-          <option>Philippines Missions</option>
-          <option>Other</option>
-        </select>
-        <textarea name="message" placeholder="Briefly tell us what you need, what you want to learn, or how you want to help."></textarea>
-        <button type="submit">Send to KMI demo CRM</button>
-      </form>
-      <p class="kmi-chat-small">Prototype only. A live version would route this to the secure KMI CRM/dashboard.</p>
+      <div class="kmi-chat-result" aria-live="polite"></div>
+      <p class="kmi-chat-small">This assistant does not collect or store your personal information. For a direct inquiry, use the KMI contact page or email <a href="mailto:${email}">${email}</a>.</p>
     </div>`;
 
   document.body.appendChild(toggle);
   document.body.appendChild(chat);
-  toggle.addEventListener("click", () => chat.classList.toggle("open"));
 
-  const body = chat.querySelector("#kmiChatBody");
-  const form = chat.querySelector("#kmiChatForm");
-  const topicSelect = chat.querySelector("select[name='topic']");
+  const closeButton = chat.querySelector('.kmi-chat-close');
+  const result = chat.querySelector('.kmi-chat-result');
 
-  function addMessage(kind, text, title = "") {
-    const msg = document.createElement("div");
-    msg.className = `kmi-chat-msg ${kind}`;
-    msg.innerHTML = title ? `<strong>${title}</strong>${text}` : text;
-    body.insertBefore(msg, form);
-    body.scrollTop = body.scrollHeight;
+  function setOpen(open) {
+    chat.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) closeButton.focus();
   }
 
-  chat.querySelectorAll("[data-topic]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const topic = btn.dataset.topic;
-      const mappedTopic = topicMap[topic] || topic;
-      const option = Array.from(topicSelect.options).find(opt => opt.value === mappedTopic || opt.textContent === mappedTopic);
-      if (option) topicSelect.value = option.value || option.textContent;
-      addMessage("user", btn.textContent);
-      addMessage("bot", responses[topic] || "Please send KMI a message through the form and someone can follow up.", topic);
-    });
+  function showTopic(key) {
+    const topic = topics[key];
+    if (!topic) return;
+    result.innerHTML = `<div class="kmi-chat-msg bot"><strong>${topic.label}</strong>${topic.response}</div><a class="kmi-chat-link" href="${topic.href}">${topic.action}</a><br><a class="kmi-chat-secondary" href="mailto:${email}?subject=${encodeURIComponent(`KMI ${topic.label}`)}">Email KMI about this</a>`;
+  }
+
+  toggle.addEventListener('click', () => setOpen(!chat.classList.contains('open')));
+  closeButton.addEventListener('click', () => {
+    setOpen(false);
+    toggle.focus();
+  });
+  chat.querySelectorAll('[data-topic]').forEach((button) => {
+    button.addEventListener('click', () => showTopic(button.dataset.topic));
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && chat.classList.contains('open')) {
+      setOpen(false);
+      toggle.focus();
+    }
   });
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const entry = {
-      date: new Date().toLocaleString(),
-      name: fd.get("name") || "",
-      email: fd.get("email") || "",
-      phone: fd.get("phone") || "",
-      topic: fd.get("topic") || "",
-      message: fd.get("message") || "",
-      status: "New chatbot lead"
-    };
-    const rows = JSON.parse(localStorage.getItem(storageKey) || "[]");
-    rows.push(entry);
-    localStorage.setItem(storageKey, JSON.stringify(rows));
-    addMessage("bot", "Thank you. This demo saved your request to the local CRM dashboard prototype.");
-    e.currentTarget.reset();
-  });
+  window.openKmiChat = (topic = 'resources') => {
+    setOpen(true);
+    showTopic(topic);
+  };
 })();
