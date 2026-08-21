@@ -14,6 +14,7 @@ const page = document.body.dataset.page || 'home';
 const siteUrl = 'https://ellvii.github.io/KMI';
 const organizationName = 'Kingdom Missions International';
 const organizationEmail = 'info@KingdomMissionsGlobal.org';
+const publicPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'connect']);
 
 const seoPages = {
   home: {
@@ -143,7 +144,6 @@ upsertMeta('meta[name="robots"]', { name: 'robots', content: robotsValue });
 upsertMeta('meta[name="author"]', { name: 'author', content: organizationName });
 upsertMeta('meta[name="theme-color"]', { name: 'theme-color', content: '#2f271c' });
 upsertLink('canonical', canonicalUrl);
-
 upsertMeta('meta[property="og:type"]', { property: 'og:type', content: 'website' });
 upsertMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: organizationName });
 upsertMeta('meta[property="og:locale"]', { property: 'og:locale', content: 'en_US' });
@@ -152,28 +152,15 @@ upsertMeta('meta[property="og:description"]', { property: 'og:description', cont
 upsertMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl });
 upsertMeta('meta[property="og:image"]', { property: 'og:image', content: imageUrl });
 upsertMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: `${organizationName} ministry and community service` });
-
 upsertMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' });
 upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.title });
 upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
 upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: imageUrl });
-upsertMeta('meta[name="twitter:image:alt"]', { name: 'twitter:image:alt', content: `${organizationName} ministry and community service` });
 
 if (seo.index) {
-  const breadcrumbItems = [{
-    '@type': 'ListItem',
-    position: 1,
-    name: 'Home',
-    item: `${siteUrl}/`
-  }];
-
+  const breadcrumbItems = [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }];
   if (page !== 'home') {
-    breadcrumbItems.push({
-      '@type': 'ListItem',
-      position: 2,
-      name: seo.title.split('|')[0].trim(),
-      item: canonicalUrl
-    });
+    breadcrumbItems.push({ '@type': 'ListItem', position: 2, name: seo.title.split('|')[0].trim(), item: canonicalUrl });
   }
 
   const structuredData = {
@@ -186,10 +173,7 @@ if (seo.index) {
         alternateName: 'KMI',
         url: `${siteUrl}/`,
         email: organizationEmail,
-        logo: {
-          '@type': 'ImageObject',
-          url: `${siteUrl}/assets/logo.jpg`
-        },
+        logo: { '@type': 'ImageObject', url: `${siteUrl}/assets/logo.jpg` },
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Las Vegas',
@@ -198,6 +182,12 @@ if (seo.index) {
           addressCountry: 'US'
         },
         areaServed: ['Las Vegas, Nevada', 'Los Angeles, California', 'Philippines', 'International'],
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'general inquiries',
+          email: organizationEmail,
+          availableLanguage: 'English'
+        },
         description: 'A Las Vegas-based Christian ministry providing community resources, education, referrals, outreach, volunteer opportunities, and international mission support.'
       },
       {
@@ -217,10 +207,7 @@ if (seo.index) {
         description: seo.description,
         isPartOf: { '@id': `${siteUrl}/#website` },
         about: { '@id': `${siteUrl}/#organization` },
-        primaryImageOfPage: {
-          '@type': 'ImageObject',
-          url: imageUrl
-        },
+        primaryImageOfPage: { '@type': 'ImageObject', url: imageUrl },
         breadcrumb: { '@id': `${canonicalUrl}#breadcrumb` },
         inLanguage: 'en-US'
       },
@@ -242,9 +229,20 @@ if (seo.index) {
   structuredDataElement.textContent = JSON.stringify(structuredData);
 }
 
+if (!document.querySelector('.skip-link')) {
+  const skipLink = document.createElement('a');
+  skipLink.className = 'skip-link';
+  skipLink.href = '#main-content';
+  skipLink.textContent = 'Skip to main content';
+  document.body.prepend(skipLink);
+}
+
+const main = document.querySelector('main');
+if (main && !main.id) main.id = 'main-content';
+
 const nav = document.querySelector('.nav-links');
 document.querySelectorAll('a[data-nav="brochure"], .nav-links a[href$="brochure.html"]').forEach((link) => link.remove());
-if (nav && !nav.querySelector('[data-nav="connect"]')) {
+if (nav && publicPages.has(page) && !nav.querySelector('[data-nav="connect"]')) {
   const connectLink = document.createElement('a');
   connectLink.dataset.nav = 'connect';
   connectLink.href = 'connect.html';
@@ -254,8 +252,46 @@ if (nav && !nav.querySelector('[data-nav="connect"]')) {
 }
 
 document.querySelectorAll('[data-nav]').forEach((link) => {
-  if (link.dataset.nav === page) link.classList.add('active');
+  link.classList.toggle('active', link.dataset.nav === page);
+  if (link.dataset.nav === page) link.setAttribute('aria-current', 'page');
 });
+
+const navbar = document.querySelector('.navbar');
+if (navbar && nav && publicPages.has(page) && !navbar.querySelector('.nav-menu-toggle')) {
+  nav.id = nav.id || 'primary-navigation';
+  nav.setAttribute('aria-label', nav.getAttribute('aria-label') || 'Primary navigation');
+  const menuButton = document.createElement('button');
+  menuButton.type = 'button';
+  menuButton.className = 'nav-menu-toggle';
+  menuButton.setAttribute('aria-controls', nav.id);
+  menuButton.setAttribute('aria-expanded', 'false');
+  menuButton.innerHTML = '<span aria-hidden="true">☰</span><span>Menu</span>';
+  navbar.insertBefore(menuButton, nav);
+
+  const closeMenu = () => {
+    nav.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.querySelector('[aria-hidden="true"]').textContent = '☰';
+  };
+
+  menuButton.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', String(isOpen));
+    menuButton.querySelector('[aria-hidden="true"]').textContent = isOpen ? '×' : '☰';
+  });
+  nav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+      menuButton.focus();
+    }
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
+  });
+}
 
 document.querySelectorAll('[data-scripture-card]').forEach((element) => {
   const scripture = scriptures[page] || scriptures.home;
@@ -293,30 +329,25 @@ if (form) {
 renderSubmissions();
 
 const footerContainer = document.querySelector('.footer .container');
-if (footerContainer && !footerContainer.querySelector('.footer-seo-nav')) {
+if (footerContainer && publicPages.has(page) && !footerContainer.querySelector('.footer-seo-nav')) {
   const footerNav = document.createElement('nav');
   footerNav.className = 'footer-seo-nav';
   footerNav.setAttribute('aria-label', 'KMI website links');
   footerNav.innerHTML = `
-    <a href="index.html">Christian Ministry Home</a>
+    <a href="index.html">Home</a>
     <a href="about.html">About KMI</a>
     <a href="resources.html">Community Resources</a>
-    <a href="edu.html">Faith-Based Education</a>
+    <a href="edu.html">Education</a>
     <a href="outreach.html">Outreach & Volunteering</a>
-    <a href="connect.html">Contact KMI</a>`;
+    <a href="connect.html">Connect With KMI</a>`;
   footerContainer.prepend(footerNav);
 }
 
-if (!document.querySelector('#kmi-seo-styles')) {
-  const style = document.createElement('style');
-  style.id = 'kmi-seo-styles';
-  style.textContent = `
-    .nav-primary-action{background:linear-gradient(135deg,#f8e8a5,#d5a83a 55%,#8f6420);color:#2b1d0a!important;box-shadow:0 8px 20px rgba(143,100,32,.22)}
-    .footer-seo-nav{display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 18px;padding:0 0 16px;border-bottom:1px solid rgba(255,255,255,.18)}
-    .footer-seo-nav a{color:#f8e8a5;text-decoration:none;font-weight:700}
-    .footer-seo-nav a:hover,.footer-seo-nav a:focus-visible{text-decoration:underline}`;
-  document.head.appendChild(style);
-}
+document.querySelectorAll('.footer .mini').forEach((element) => {
+  if (/Prototype by Ell Vii/i.test(element.textContent)) {
+    element.textContent = "Website development and technical SEO by Ell Vii's Automations.";
+  }
+});
 
 document.querySelectorAll('.footer img[src*="ellvii-logo-dark-background"]').forEach((image) => {
   image.style.width = '26px';
@@ -328,6 +359,13 @@ document.querySelectorAll('.footer img[src*="ellvii-logo-dark-background"]').for
   image.style.verticalAlign = 'middle';
   image.style.boxShadow = 'none';
 });
+
+if (publicPages.has(page) && !document.querySelector('script[data-kmi-assistant]')) {
+  const assistantScript = document.createElement('script');
+  assistantScript.src = 'assets/chatbot.js';
+  assistantScript.dataset.kmiAssistant = 'true';
+  document.body.appendChild(assistantScript);
+}
 
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.querySelectorAll('video[autoplay]').forEach((video) => {
