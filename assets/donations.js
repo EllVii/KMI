@@ -6,25 +6,27 @@
     if (el) el.textContent = text;
   };
 
-  const freewillButtons = document.querySelectorAll('[data-freewill-crypto]');
-  freewillButtons.forEach((button) => {
-    if (config.freewillCryptoUrl) {
-      button.href = config.freewillCryptoUrl;
+  const everyOrgButtons = document.querySelectorAll('[data-everyorg-donate]');
+  everyOrgButtons.forEach((button) => {
+    if (config.everyOrgDonateUrl) {
+      button.href = config.everyOrgDonateUrl;
       button.removeAttribute('aria-disabled');
       button.removeAttribute('data-disabled');
+      button.target = '_blank';
+      button.rel = 'noopener noreferrer';
     } else {
-      button.href = '#freewill-setup';
+      button.href = '#everyorg-setup';
       button.setAttribute('aria-disabled', 'true');
       button.setAttribute('data-disabled', 'true');
     }
   });
 
-  if (freewillButtons.length) {
+  if (everyOrgButtons.length) {
     setStatus(
-      'freewill-status',
-      config.freewillCryptoUrl
-        ? 'Secure crypto gift flow available through FreeWill.'
-        : 'KMI’s organization-specific FreeWill crypto link still needs to be added.'
+      'everyorg-status',
+      config.everyOrgDonateUrl
+        ? 'Secure donation flow available through Every.org.'
+        : 'KMI’s organization-specific Every.org donation link still needs to be added.'
     );
   }
 
@@ -55,7 +57,7 @@
         apiStatus.dataset.state = 'ready';
       })
       .catch(() => {
-        apiStatus.textContent = 'Givebutter API secret is not configured yet. Donation widgets can still be enabled separately.';
+        apiStatus.textContent = 'Givebutter API secret is not configured on GitHub Pages. Donation widgets can still be enabled separately.';
         apiStatus.dataset.state = 'setup';
       });
   }
