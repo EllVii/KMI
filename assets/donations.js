@@ -6,19 +6,26 @@
     if (el) el.textContent = text;
   };
 
-  const freewillButton = document.querySelector('[data-freewill-crypto]');
-  if (freewillButton) {
+  const freewillButtons = document.querySelectorAll('[data-freewill-crypto]');
+  freewillButtons.forEach((button) => {
     if (config.freewillCryptoUrl) {
-      freewillButton.href = config.freewillCryptoUrl;
-      freewillButton.removeAttribute('aria-disabled');
-      freewillButton.removeAttribute('data-disabled');
-      setStatus('freewill-status', 'Secure crypto gift flow available through FreeWill.');
+      button.href = config.freewillCryptoUrl;
+      button.removeAttribute('aria-disabled');
+      button.removeAttribute('data-disabled');
     } else {
-      freewillButton.href = '#freewill-setup';
-      freewillButton.setAttribute('aria-disabled', 'true');
-      freewillButton.setAttribute('data-disabled', 'true');
-      setStatus('freewill-status', 'KMI’s organization-specific FreeWill crypto link still needs to be added.');
+      button.href = '#freewill-setup';
+      button.setAttribute('aria-disabled', 'true');
+      button.setAttribute('data-disabled', 'true');
     }
+  });
+
+  if (freewillButtons.length) {
+    setStatus(
+      'freewill-status',
+      config.freewillCryptoUrl
+        ? 'Secure crypto gift flow available through FreeWill.'
+        : 'KMI’s organization-specific FreeWill crypto link still needs to be added.'
+    );
   }
 
   const givebutterMount = document.getElementById('givebutter-widget');
