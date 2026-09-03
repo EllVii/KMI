@@ -1,13 +1,13 @@
 (() => {
   const config = window.KMI_DONATIONS || {};
+  const contactHref = 'connect.html#contact';
 
   const setStatus = (id, text) => {
     const el = document.getElementById(id);
     if (el) el.textContent = text;
   };
 
-  const everyOrgButtons = document.querySelectorAll('[data-everyorg-donate]');
-  everyOrgButtons.forEach((button) => {
+  document.querySelectorAll('[data-everyorg-donate]').forEach((button) => {
     if (config.everyOrgDonateUrl) {
       button.href = config.everyOrgDonateUrl;
       button.removeAttribute('aria-disabled');
@@ -15,20 +15,19 @@
       button.target = '_blank';
       button.rel = 'noopener noreferrer';
     } else {
-      button.href = '#everyorg-setup';
-      button.setAttribute('aria-disabled', 'true');
-      button.setAttribute('data-disabled', 'true');
+      button.href = contactHref;
+      button.removeAttribute('aria-disabled');
+      button.removeAttribute('data-disabled');
+      button.textContent = 'Contact KMI About Crypto Giving';
     }
   });
 
-  if (everyOrgButtons.length) {
-    setStatus(
-      'everyorg-status',
-      config.everyOrgDonateUrl
-        ? 'Secure donation flow available through Every.org.'
-        : 'KMI’s organization-specific Every.org donation link still needs to be added.'
-    );
-  }
+  setStatus(
+    'everyorg-status',
+    config.everyOrgDonateUrl
+      ? 'Secure cryptocurrency giving is available through Every.org.'
+      : 'KMI is finalizing its organization-specific Every.org giving link. Contact KMI for current donation options.'
+  );
 
   const givebutterMount = document.getElementById('givebutter-widget');
   if (givebutterMount && config.givebutterAccountId && config.givebutterCampaignCode) {
@@ -39,26 +38,15 @@
       const form = document.createElement('givebutter-giving-form');
       form.setAttribute('campaign', config.givebutterCampaignCode);
       givebutterMount.replaceChildren(form);
-      setStatus('givebutter-status', 'Givebutter donation form loaded.');
+      setStatus('givebutter-status', 'Secure online giving is available through Givebutter.');
     };
-    script.onerror = () => setStatus('givebutter-status', 'Givebutter could not load. Please use the direct donation link.');
+    script.onerror = () => {
+      givebutterMount.innerHTML = '<p><strong>Online giving is temporarily unavailable.</strong></p><a class="btn ghost" href="connect.html#contact">Contact KMI about giving</a>';
+      setStatus('givebutter-status', 'Please contact KMI for current giving options.');
+    };
     document.head.appendChild(script);
   } else if (givebutterMount) {
-    setStatus('givebutter-status', 'Givebutter Account ID and Campaign Code still need to be added.');
-  }
-
-  const apiStatus = document.getElementById('givebutter-api-status');
-  if (apiStatus) {
-    fetch('/api/givebutter?resource=campaigns', { headers: { Accept: 'application/json' } })
-      .then(async (response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        await response.json();
-        apiStatus.textContent = 'Givebutter API connection is configured.';
-        apiStatus.dataset.state = 'ready';
-      })
-      .catch(() => {
-        apiStatus.textContent = 'Givebutter API secret is not configured on GitHub Pages. Donation widgets can still be enabled separately.';
-        apiStatus.dataset.state = 'setup';
-      });
+    givebutterMount.innerHTML = '<p><strong>Online giving options are being finalized.</strong></p><p class="mini">KMI will publish the approved donation pathway here once the provider account is active.</p><a class="btn ghost" href="connect.html#contact">Contact KMI about giving</a>';
+    setStatus('givebutter-status', 'KMI is finalizing its approved online giving pathway.');
   }
 })();

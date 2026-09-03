@@ -4,7 +4,13 @@ const scriptures = {
   resources: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
   edu: ['Let the wise hear and increase in learning.', 'Proverbs 1:5'],
   outreach: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
+  ministries: ['There are different kinds of service, but the same Lord.', '1 Corinthians 12:5'],
+  give: ['Each of you should give what you have decided in your heart to give.', '2 Corinthians 9:7'],
+  crypto: ['Each of you should give what you have decided in your heart to give.', '2 Corinthians 9:7'],
   connect: ['Carry each other’s burdens, and in this way you will fulfill the law of Christ.', 'Galatians 6:2'],
+  faq: ['Let your conversation be always full of grace, seasoned with salt.', 'Colossians 4:6'],
+  support: ['Carry each other’s burdens, and in this way you will fulfill the law of Christ.', 'Galatians 6:2'],
+  contact: ['Let your conversation be always full of grace, seasoned with salt.', 'Colossians 4:6'],
   brochure: ['Write the vision; make it plain.', 'Habakkuk 2:2'],
   plans: ['It is required of stewards that they be found faithful.', '1 Corinthians 4:2'],
   timeline: ['For everything there is a season, and a time for every matter under heaven.', 'Ecclesiastes 3:1']
@@ -14,21 +20,23 @@ const page = document.body.dataset.page || 'home';
 const siteUrl = 'https://ellvii.github.io/KMI';
 const organizationName = 'Kingdom Missions International';
 const organizationEmail = 'info@KingdomMissionsGlobal.org';
-const publicPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'connect']);
+const legalName = 'Kingdom Missions Intnl Overseer & His Successors A Corporation Sole';
+const enhancedPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'crypto', 'connect', 'faq', 'support', 'contact']);
+const assistantPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'connect', 'faq']);
 
 const seoPages = {
   home: {
     path: '/',
     title: 'Christian Ministry & Community Resources in Las Vegas | KMI',
-    description: 'Kingdom Missions International is a Las Vegas-based Christian ministry providing community resources, education, food outreach, referrals, volunteer opportunities, and international mission support.',
+    description: 'Kingdom Missions International is a Las Vegas-based Christian ministry providing community resources, education, food outreach, referrals, volunteer opportunities, giving, and international mission support.',
     image: '/assets/media/home-hero-international-missions.webp',
     schemaType: 'WebPage',
     index: true
   },
   about: {
     path: '/about.html',
-    title: 'About KMI | Christian Ministry Leaders, Mission & Values',
-    description: 'Learn about Kingdom Missions International, servant leaders Marc and Helen, KMI’s Christian mission, vision, beliefs, core values, and commitment to serving communities.',
+    title: 'About KMI Las Vegas | Christian Mission, Leaders & Values',
+    description: 'Learn about Kingdom Missions International in Las Vegas, servant leaders Marc and Helen, KMI’s Christian mission, vision, beliefs, values, and community-service focus.',
     image: '/assets/media/gallery-mission-relationship.webp',
     schemaType: 'AboutPage',
     index: true
@@ -57,13 +65,64 @@ const seoPages = {
     schemaType: 'CollectionPage',
     index: true
   },
+  ministries: {
+    path: '/ministry-areas.html',
+    title: 'KMI Ministry Areas | Family, Resources, Education & Outreach',
+    description: 'Explore Kingdom Missions International ministry areas for families, biblical support, community resources, food outreach, education, scholarships, and service opportunities.',
+    image: '/assets/media/fellowship-community-meal.webp',
+    schemaType: 'CollectionPage',
+    index: true
+  },
+  give: {
+    path: '/give.html',
+    title: 'Give to Kingdom Missions International | Support KMI',
+    description: 'Support Kingdom Missions International through approved online giving options, ministry partnerships, volunteer service, and future cryptocurrency giving.',
+    image: '/assets/media/impact-food-relief-families.webp',
+    schemaType: 'WebPage',
+    index: true
+  },
+  crypto: {
+    path: '/crypto-donations.html',
+    canonicalPath: '/give.html',
+    title: 'Cryptocurrency Giving | Kingdom Missions International',
+    description: 'Information about KMI cryptocurrency giving through an approved third-party charitable donation provider.',
+    image: '/assets/media/impact-food-relief-families.webp',
+    schemaType: 'WebPage',
+    index: false
+  },
   connect: {
     path: '/connect.html',
     title: 'Get Help, Volunteer or Partner With KMI | Contact KMI',
-    description: 'Connect with Kingdom Missions International to request community resource guidance, volunteer, form a ministry partnership, ask about education, or contact KMI.',
+    description: 'Connect with Kingdom Missions International to request community resource guidance, volunteer, form a ministry partnership, ask about education, giving, or contact KMI.',
     image: '/assets/media/fellowship-community-meal.webp',
     schemaType: 'ContactPage',
     index: true
+  },
+  faq: {
+    path: '/faq.html',
+    title: 'KMI Questions & Answers | Kingdom Missions International Las Vegas',
+    description: 'Get direct answers about Kingdom Missions International, where KMI serves, community resources, education, volunteering, partnerships, giving, and how to contact KMI.',
+    image: '/assets/media/fellowship-community-meal.webp',
+    schemaType: 'WebPage',
+    index: true
+  },
+  support: {
+    path: '/get-support.html',
+    canonicalPath: '/connect.html',
+    title: 'Get Support | Kingdom Missions International',
+    description: 'Use KMI Connect to request resource guidance or ministry support.',
+    image: '/assets/media/ministry-food-packing.webp',
+    schemaType: 'WebPage',
+    index: false
+  },
+  contact: {
+    path: '/contact.html',
+    canonicalPath: '/connect.html',
+    title: 'Contact | Kingdom Missions International',
+    description: 'Use KMI Connect for general questions, partnerships, volunteering, education, giving, and resource guidance.',
+    image: '/assets/media/fellowship-community-meal.webp',
+    schemaType: 'WebPage',
+    index: false
   },
   brochure: {
     path: '/brochure.html',
@@ -102,8 +161,16 @@ const seoPages = {
   }
 };
 
-const seo = seoPages[page] || seoPages.home;
-const canonicalUrl = `${siteUrl}${seo.path}`;
+const seo = seoPages[page] || {
+  path: window.location.pathname.replace('/KMI', '') || '/',
+  title: document.title || organizationName,
+  description: document.querySelector('meta[name="description"]')?.content || 'Kingdom Missions International.',
+  image: '/assets/media/home-hero-international-missions.webp',
+  schemaType: 'WebPage',
+  index: false
+};
+const canonicalPath = seo.canonicalPath || seo.path;
+const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const imageUrl = `${siteUrl}${seo.image}`;
 const robotsValue = seo.index
   ? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
@@ -170,6 +237,7 @@ if (seo.index) {
         '@type': 'Organization',
         '@id': `${siteUrl}/#organization`,
         name: organizationName,
+        legalName,
         alternateName: 'KMI',
         url: `${siteUrl}/`,
         email: organizationEmail,
@@ -182,13 +250,14 @@ if (seo.index) {
           addressCountry: 'US'
         },
         areaServed: ['Las Vegas, Nevada', 'Los Angeles, California', 'Philippines', 'International'],
+        knowsAbout: ['Christian ministry', 'community resources', 'food outreach', 'faith-based education', 'biblical counseling', 'volunteering', 'community partnerships', 'international missions'],
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'general inquiries',
           email: organizationEmail,
           availableLanguage: 'English'
         },
-        description: 'A Las Vegas-based Christian ministry providing community resources, education, referrals, outreach, volunteer opportunities, and international mission support.'
+        description: 'A Las Vegas-based Christian ministry providing community resources, education, referrals, outreach, volunteer opportunities, giving pathways, and international mission support.'
       },
       {
         '@type': 'WebSite',
@@ -242,24 +311,38 @@ if (main && !main.id) main.id = 'main-content';
 
 const nav = document.querySelector('.nav-links');
 document.querySelectorAll('a[data-nav="brochure"], .nav-links a[href$="brochure.html"]').forEach((link) => link.remove());
-if (nav && publicPages.has(page) && !nav.querySelector('[data-nav="connect"]')) {
-  const connectLink = document.createElement('a');
-  connectLink.dataset.nav = 'connect';
-  connectLink.href = 'connect.html';
-  connectLink.textContent = 'Connect';
-  connectLink.className = 'nav-primary-action';
-  nav.appendChild(connectLink);
+
+if (nav && enhancedPages.has(page)) {
+  const desiredLinks = [
+    ['home', 'index.html', 'Home'],
+    ['about', 'about.html', 'About Us'],
+    ['resources', 'resources.html', 'Resources'],
+    ['edu', 'edu.html', 'Education'],
+    ['outreach', 'outreach.html', 'Outreach'],
+    ['give', 'give.html', 'Give'],
+    ['connect', 'connect.html', 'Connect']
+  ];
+  nav.replaceChildren(...desiredLinks.map(([key, href, label]) => {
+    const link = document.createElement('a');
+    link.dataset.nav = key;
+    link.href = href;
+    link.textContent = label;
+    if (key === 'connect') link.className = 'nav-primary-action';
+    return link;
+  }));
+  nav.setAttribute('aria-label', 'Primary navigation');
 }
 
 document.querySelectorAll('[data-nav]').forEach((link) => {
-  link.classList.toggle('active', link.dataset.nav === page);
-  if (link.dataset.nav === page) link.setAttribute('aria-current', 'page');
+  const activeKey = page === 'crypto' ? 'give' : page;
+  link.classList.toggle('active', link.dataset.nav === activeKey);
+  if (link.dataset.nav === activeKey) link.setAttribute('aria-current', 'page');
+  else link.removeAttribute('aria-current');
 });
 
 const navbar = document.querySelector('.navbar');
-if (navbar && nav && publicPages.has(page) && !navbar.querySelector('.nav-menu-toggle')) {
+if (navbar && nav && enhancedPages.has(page) && !navbar.querySelector('.nav-menu-toggle')) {
   nav.id = nav.id || 'primary-navigation';
-  nav.setAttribute('aria-label', nav.getAttribute('aria-label') || 'Primary navigation');
   const menuButton = document.createElement('button');
   menuButton.type = 'button';
   menuButton.className = 'nav-menu-toggle';
@@ -298,38 +381,8 @@ document.querySelectorAll('[data-scripture-card]').forEach((element) => {
   element.innerHTML = `<blockquote>“${escapeHtml(scripture[0])}”</blockquote><cite>${escapeHtml(scripture[1])}</cite>`;
 });
 
-const form = document.querySelector('#intakeForm');
-const table = document.querySelector('#submissions');
-const storageKey = 'kmiDemoSubmissions';
-
-function renderSubmissions() {
-  if (!table) return;
-  const rows = JSON.parse(localStorage.getItem(storageKey) || '[]');
-  table.innerHTML = rows.length
-    ? rows.map((row) => `<tr><td>${escapeHtml(row.name)}</td><td>${escapeHtml(row.email)}</td><td>${escapeHtml(row.interest)}</td><td>${escapeHtml(row.status)}</td></tr>`).join('')
-    : '<tr><td colspan="4">No demo submissions yet.</td></tr>';
-}
-
-if (form) {
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const rows = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    rows.push({
-      name: formData.get('name') || '',
-      email: formData.get('email') || '',
-      interest: formData.get('interest') || '',
-      status: 'New inquiry'
-    });
-    localStorage.setItem(storageKey, JSON.stringify(rows));
-    form.reset();
-    renderSubmissions();
-  });
-}
-renderSubmissions();
-
 const footerContainer = document.querySelector('.footer .container');
-if (footerContainer && publicPages.has(page) && !footerContainer.querySelector('.footer-seo-nav')) {
+if (footerContainer && enhancedPages.has(page) && !footerContainer.querySelector('.footer-seo-nav')) {
   const footerNav = document.createElement('nav');
   footerNav.className = 'footer-seo-nav';
   footerNav.setAttribute('aria-label', 'KMI website links');
@@ -339,6 +392,9 @@ if (footerContainer && publicPages.has(page) && !footerContainer.querySelector('
     <a href="resources.html">Community Resources</a>
     <a href="edu.html">Education</a>
     <a href="outreach.html">Outreach & Volunteering</a>
+    <a href="ministry-areas.html">Ministry Areas</a>
+    <a href="give.html">Give</a>
+    <a href="faq.html">Questions & Answers</a>
     <a href="connect.html">Connect With KMI</a>`;
   footerContainer.prepend(footerNav);
 }
@@ -360,7 +416,7 @@ document.querySelectorAll('.footer img[src*="ellvii-logo-dark-background"]').for
   image.style.boxShadow = 'none';
 });
 
-if (publicPages.has(page) && !document.querySelector('script[data-kmi-assistant]')) {
+if (assistantPages.has(page) && !document.querySelector('script[data-kmi-assistant]') && !window.__kmiSupportAssistantLoaded) {
   const assistantScript = document.createElement('script');
   assistantScript.src = 'assets/chatbot.js';
   assistantScript.dataset.kmiAssistant = 'true';

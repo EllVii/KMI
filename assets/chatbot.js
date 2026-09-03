@@ -24,7 +24,7 @@
     },
     education: {
       label: 'Ask about education',
-      response: 'KMI offers information about faith-based degree pathways, chaplaincy, biblical counseling, and service-centered certification opportunities.',
+      response: 'KMI provides information about faith-based degree pathways, chaplaincy, biblical counseling, and service-centered certification opportunities.',
       href: 'connect.html#education',
       action: 'Ask about education'
     },
@@ -34,9 +34,21 @@
       href: 'outreach.html',
       action: 'View outreach'
     },
+    give: {
+      label: 'Give or support KMI',
+      response: 'KMI’s giving page explains current donation, partnership, and volunteer pathways. Payment processing is handled by approved third-party providers when those options are active.',
+      href: 'give.html',
+      action: 'View giving options'
+    },
+    faq: {
+      label: 'Get a quick answer',
+      response: 'KMI’s Questions & Answers page gives concise information about the ministry, service area, resources, education, volunteering, partnerships, giving, and contact options.',
+      href: 'faq.html',
+      action: 'Read KMI answers'
+    },
     about: {
       label: 'Learn about KMI',
-      response: 'Kingdom Missions International is a faith-centered ministry based in Las Vegas, serving communities through resources, education, outreach, referrals, and mission support.',
+      response: 'Kingdom Missions International is a faith-centered ministry based in Las Vegas, serving communities through resources, education, outreach, referrals, volunteer opportunities, partnerships, and mission support.',
       href: 'about.html',
       action: 'About KMI'
     }
@@ -47,7 +59,6 @@
     .kmi-chat{position:fixed;right:18px;bottom:78px;z-index:9999;width:min(390px,calc(100vw - 36px));max-height:min(650px,calc(100vh - 112px));background:#fffaf2;border:1px solid rgba(59,42,23,.18);border-radius:22px;box-shadow:0 22px 60px rgba(0,0,0,.28);overflow:hidden;display:none;color:#2b241b}
     .kmi-chat.open{display:block}.kmi-chat-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#2d2419;color:#f8e8a5;padding:14px 16px}.kmi-chat-head strong{display:block;font-family:Georgia,serif;font-size:18px}.kmi-chat-head span{display:block;font-size:12px;line-height:1.35;margin-top:3px;color:#fff3c4}.kmi-chat-close{border:0;background:transparent;color:#fff3c4;font-size:24px;line-height:1;cursor:pointer;padding:2px 5px;border-radius:8px}.kmi-chat-body{padding:14px 16px;max-height:min(560px,calc(100vh - 190px));overflow:auto}.kmi-chat-msg{border-radius:16px;padding:10px 12px;margin:8px 0;font-size:14px;line-height:1.45}.kmi-chat-msg.bot{background:#f1e6d4}.kmi-chat-msg strong{display:block;margin-bottom:4px}.kmi-chat-actions{display:grid;gap:8px;margin:12px 0}.kmi-chat-actions button{border:1px solid rgba(59,42,23,.18);background:#fff;border-radius:14px;padding:10px 12px;text-align:left;font-weight:800;cursor:pointer;color:#2b241b}.kmi-chat-actions button:hover,.kmi-chat-actions button:focus-visible{background:#fbf0d5}.kmi-chat-result{margin-top:10px;padding-top:10px;border-top:1px solid rgba(59,42,23,.14)}.kmi-chat-link{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:10px 13px;background:#3f4a35;color:#fff!important;text-decoration:none;font-weight:900}.kmi-chat-secondary{display:inline-block;margin:10px 0 0;color:#563d17;font-weight:800}.kmi-chat-small{font-size:12px;color:#6b5f4e;margin:12px 0 0;padding-top:10px;border-top:1px solid rgba(59,42,23,.12)}
     @media(max-width:560px){.kmi-chat-toggle{right:12px;bottom:12px}.kmi-chat{right:12px;bottom:70px;width:calc(100vw - 24px)}}
-    @media(prefers-reduced-motion:reduce){.kmi-chat-toggle{scroll-behavior:auto}}
   `;
 
   const style = document.createElement('style');
@@ -77,7 +88,7 @@
         ${Object.entries(topics).map(([key, topic]) => `<button type="button" data-topic="${key}">${topic.label}</button>`).join('')}
       </div>
       <div class="kmi-chat-result" aria-live="polite"></div>
-      <p class="kmi-chat-small">This assistant does not collect or store your personal information. For a direct inquiry, use the KMI contact page or email <a href="mailto:${email}">${email}</a>.</p>
+      <p class="kmi-chat-small">This assistant does not collect or store personal information. For a direct inquiry, use <a href="connect.html#contact">KMI Connect</a> or email <a href="mailto:${email}">${email}</a>.</p>
     </div>`;
 
   document.body.appendChild(toggle);
