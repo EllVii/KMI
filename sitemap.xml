@@ -3,62 +3,63 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ellvii.github.io/KMI/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://ellvii.github.io/KMI/assets/media/home-hero-international-missions.webp</image:loc>
-      <image:title>Kingdom Missions International community and international outreach</image:title>
-    </image:image>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/home-hero-international-missions.webp</image:loc><image:title>Kingdom Missions International community and international outreach</image:title></image:image>
   </url>
   <url>
     <loc>https://ellvii.github.io/KMI/about.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://ellvii.github.io/KMI/assets/media/gallery-mission-relationship.webp</image:loc>
-      <image:title>KMI ministry relationships and servant leadership</image:title>
-    </image:image>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/gallery-mission-relationship.webp</image:loc><image:title>KMI ministry relationships and servant leadership</image:title></image:image>
   </url>
   <url>
     <loc>https://ellvii.github.io/KMI/resources.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://ellvii.github.io/KMI/assets/media/ministry-food-packing.webp</image:loc>
-      <image:title>KMI volunteers preparing community food resources</image:title>
-    </image:image>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/ministry-food-packing.webp</image:loc><image:title>KMI volunteers preparing community food resources</image:title></image:image>
   </url>
   <url>
     <loc>https://ellvii.github.io/KMI/edu.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <image:image>
-      <image:loc>https://ellvii.github.io/KMI/assets/media/resources-community-teaching.webp</image:loc>
-      <image:title>KMI faith-based education and community teaching</image:title>
-    </image:image>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/resources-community-teaching.webp</image:loc><image:title>KMI faith-based education and community teaching</image:title></image:image>
   </url>
   <url>
     <loc>https://ellvii.github.io/KMI/outreach.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://ellvii.github.io/KMI/assets/media/gallery-youth-outreach.webp</image:loc>
-      <image:title>KMI Christian outreach, food relief, and volunteer service</image:title>
-    </image:image>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/gallery-youth-outreach.webp</image:loc><image:title>KMI Christian outreach, food relief, and volunteer service</image:title></image:image>
+  </url>
+  <url>
+    <loc>https://ellvii.github.io/KMI/ministry-areas.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ellvii.github.io/KMI/give.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://ellvii.github.io/KMI/faq.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/fellowship-community-meal.webp</image:loc><image:title>Questions and answers about Kingdom Missions International</image:title></image:image>
   </url>
   <url>
     <loc>https://ellvii.github.io/KMI/connect.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://ellvii.github.io/KMI/assets/media/fellowship-community-meal.webp</image:loc>
-      <image:title>Connect with Kingdom Missions International</image:title>
-    </image:image>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/fellowship-community-meal.webp</image:loc><image:title>Connect with Kingdom Missions International</image:title></image:image>
   </url>
 </urlset>
