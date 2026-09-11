@@ -1,4 +1,12 @@
-const ALLOWED_RESOURCES = new Set(['campaigns', 'funds']);
+const ALLOWED_RESOURCES = new Set([
+  'campaigns',
+  'funds',
+  'contacts',
+  'transactions',
+  'recurring-plans',
+  'payouts',
+  'webhook-activities'
+]);
 
 export async function onRequestGet(context) {
   const { request, env } = context;
@@ -21,8 +29,13 @@ export async function onRequestGet(context) {
   }
 
   const upstream = new URL(`https://api.givebutter.com/v1/${resource}`);
-  const page = url.searchParams.get('page');
-  if (page) upstream.searchParams.set('page', page);
+
+  // Pass through only known pagination parameters. Never proxy arbitrary
+  // query parameters to the upstream API.
+  for (const key of ['page', 'per_page', 'cursor']) {
+    const value = url.searchParams.get(key);
+    if (value) upstream.searchParams.set(key, value);
+  }
 
   const response = await fetch(upstream.toString(), {
     headers: {
