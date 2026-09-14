@@ -1,3 +1,8 @@
+// Public Givebutter API proxy.
+//
+// Keep this route limited to non-sensitive fundraising metadata. Donor,
+// transaction, recurring-plan, payout, and webhook-activity data must only be
+// exposed through a separately authenticated C-Panel service.
 const ALLOWED_RESOURCES = new Set(['campaigns', 'funds']);
 
 export async function onRequestGet(context) {
@@ -15,14 +20,16 @@ export async function onRequestGet(context) {
 
   if (!ALLOWED_RESOURCES.has(resource)) {
     return Response.json(
-      { ok: false, error: 'Unsupported Givebutter resource.' },
-      { status: 400, headers: { 'Cache-Control': 'no-store' } }
+      { ok: false, error: 'Unsupported public Givebutter resource.' },
+      { status: 403, headers: { 'Cache-Control': 'no-store' } }
     );
   }
 
   const upstream = new URL(`https://api.givebutter.com/v1/${resource}`);
-  const page = url.searchParams.get('page');
-  if (page) upstream.searchParams.set('page', page);
+  for (const key of ['page', 'per_page', 'cursor']) {
+    const value = url.searchParams.get(key);
+    if (value) upstream.searchParams.set(key, value);
+  }
 
   const response = await fetch(upstream.toString(), {
     headers: {
