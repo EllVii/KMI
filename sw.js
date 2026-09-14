@@ -10,6 +10,8 @@ const CORE = [
   './give.html',
   './connect.html',
   './faq.html',
+  './media.html',
+  './privacy.html',
   './crypto-donations.html',
   './assets/styles.css',
   './assets/photos.css',
