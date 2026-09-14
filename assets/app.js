@@ -224,6 +224,13 @@ upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.t
 upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
 upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: imageUrl });
 
+upsertLink('manifest', 'manifest.webmanifest');
+upsertMeta('meta[name="mobile-web-app-capable"]', { name: 'mobile-web-app-capable', content: 'yes' });
+upsertMeta('meta[name="apple-mobile-web-app-capable"]', { name: 'apple-mobile-web-app-capable', content: 'yes' });
+upsertMeta('meta[name="apple-mobile-web-app-status-bar-style"]', { name: 'apple-mobile-web-app-status-bar-style', content: 'default' });
+upsertMeta('meta[name="apple-mobile-web-app-title"]', { name: 'apple-mobile-web-app-title', content: 'KMI' });
+
+
 if (seo.index) {
   const breadcrumbItems = [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }];
   if (page !== 'home') {
@@ -427,5 +434,20 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.querySelectorAll('video[autoplay]').forEach((video) => {
     video.pause();
     video.removeAttribute('autoplay');
+  });
+}
+
+
+const pwaBlockedPaths = ['/login', '/c-panel', '/cpanel', '/staff', '/admin', '/crm.html', '/plans.html', '/timeline.html'];
+const canRegisterServiceWorker =
+  'serviceWorker' in navigator &&
+  window.isSecureContext &&
+  !pwaBlockedPaths.some((path) => window.location.pathname.includes(path));
+
+if (canRegisterServiceWorker) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch((error) => {
+      console.warn('KMI service worker registration failed.', error);
+    });
   });
 }
