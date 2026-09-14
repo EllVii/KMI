@@ -13,7 +13,9 @@ const scriptures = {
   contact: ['Let your conversation be always full of grace, seasoned with salt.', 'Colossians 4:6'],
   brochure: ['Write the vision; make it plain.', 'Habakkuk 2:2'],
   plans: ['It is required of stewards that they be found faithful.', '1 Corinthians 4:2'],
-  timeline: ['For everything there is a season, and a time for every matter under heaven.', 'Ecclesiastes 3:1']
+  timeline: ['For everything there is a season, and a time for every matter under heaven.', 'Ecclesiastes 3:1'],
+  media: ['Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.', 'Matthew 5:16'],
+  privacy: ['The prudent see danger and take refuge.', 'Proverbs 27:12']
 };
 
 const page = document.body.dataset.page || 'home';
@@ -21,8 +23,8 @@ const siteUrl = 'https://ellvii.github.io/KMI';
 const organizationName = 'Kingdom Missions International';
 const organizationEmail = 'info@KingdomMissionsGlobal.org';
 const legalName = 'Kingdom Missions Intnl Overseer & His Successors A Corporation Sole';
-const enhancedPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'crypto', 'connect', 'faq', 'support', 'contact']);
-const assistantPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'connect', 'faq']);
+const enhancedPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'crypto', 'connect', 'faq', 'support', 'contact', 'media', 'privacy']);
+const assistantPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'connect', 'faq', 'media']);
 
 const seoPages = {
   home: {
@@ -103,6 +105,22 @@ const seoPages = {
     title: 'KMI Questions & Answers | Kingdom Missions International Las Vegas',
     description: 'Get direct answers about Kingdom Missions International, where KMI serves, community resources, education, volunteering, partnerships, giving, and how to contact KMI.',
     image: '/assets/media/fellowship-community-meal.webp',
+    schemaType: 'WebPage',
+    index: true
+  },
+  media: {
+    path: '/media.html',
+    title: 'Media & Partnerships | Kingdom Missions International',
+    description: 'Official KMI organization facts, media contact, partnership pathways, and accurate reference information for churches, nonprofits, businesses, educators, and community leaders.',
+    image: '/assets/media/gallery-mission-relationship.webp',
+    schemaType: 'AboutPage',
+    index: true
+  },
+  privacy: {
+    path: '/privacy.html',
+    title: 'Website Privacy | Kingdom Missions International',
+    description: 'Learn how the KMI public website handles website interactions, email contact, third-party donation processing, and hosting-provider data.',
+    image: '/assets/media/home-hero-international-missions.webp',
     schemaType: 'WebPage',
     index: true
   },
@@ -402,7 +420,9 @@ if (footerContainer && enhancedPages.has(page) && !footerContainer.querySelector
     <a href="ministry-areas.html">Ministry Areas</a>
     <a href="give.html">Give</a>
     <a href="faq.html">Questions & Answers</a>
-    <a href="connect.html">Connect With KMI</a>`;
+    <a href="connect.html">Connect With KMI</a>
+    <a href="media.html">Media & Partnerships</a>
+    <a href="privacy.html">Website Privacy</a>`;
   footerContainer.prepend(footerNav);
 }
 
