@@ -1,0 +1,35 @@
+{
+  "name": "Kingdom Missions International",
+  "short_name": "KMI",
+  "description": "Kingdom Missions International community resources, education, outreach, giving, and connection pathways.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f2e7",
+  "theme_color": "#2f271c",
+  "icons": [
+    {
+      "src": "assets/logo.jpg?v=clean2",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Get Help or Connect",
+      "short_name": "Connect",
+      "url": "connect.html"
+    },
+    {
+      "name": "Give to KMI",
+      "short_name": "Give",
+      "url": "give.html"
+    },
+    {
+      "name": "Community Resources",
+      "short_name": "Resources",
+      "url": "resources.html"
+    }
+  ]
+}
