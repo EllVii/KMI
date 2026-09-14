@@ -3,5 +3,6 @@
 .wrangler
 .assetsignore
 functions
+src
 *.md
 wrangler.jsonc

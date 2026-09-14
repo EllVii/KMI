@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Give to Kingdom Missions International | Support KMI</title>
-  <meta name="description" content="Support Kingdom Missions International through approved giving options, ministry partnerships, volunteer service, and future cryptocurrency giving.">
+  <meta name="description" content="Support Kingdom Missions International through approved online giving, ministry partnerships, volunteer service, and a future cryptocurrency giving pathway.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="https://ellvii.github.io/KMI/give.html">
   <link rel="icon" type="image/png" href="assets/ellvii-logo-dark-background.png?v=dark1">
@@ -34,10 +34,11 @@
         <h1>Support the Mission</h1>
         <p class="lead">Support KMI in the way that fits you best: giving, community partnership, volunteering, or helping connect people with resources and outreach.</p>
         <div class="hero-actions">
-          <a class="btn gold" href="connect.html#contact">Ask About Giving</a>
+          <a class="btn gold" href="#give-online" aria-label="Give now through KMI's secure Givebutter form">💛 Give Now</a>
           <a class="btn ghost" href="crypto-donations.html">Cryptocurrency Giving</a>
           <a class="btn ghost" href="connect.html#partner">Become a Partner</a>
         </div>
+        <p class="mini">🔒 Secure giving through Givebutter. Payment details are processed by Givebutter, not stored on KMI's public website.</p>
       </div>
       <div class="scripture-card" data-scripture-card></div>
     </div>
@@ -53,13 +54,13 @@
       <article class="card path-card">
         <div class="icon" aria-hidden="true">💛</div>
         <h3>Financial Giving</h3>
-        <p>Ask KMI for the current approved online giving pathway and information about supporting ministry work.</p>
-        <a class="btn gold" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Giving%20Inquiry">Contact KMI About Giving</a>
+        <p>Give securely through KMI’s approved Givebutter campaign. The donation form is embedded below so you can give without leaving the KMI website.</p>
+        <a class="btn gold" href="#give-online">Give Online</a>
       </article>
       <article class="card path-card">
         <div class="icon" aria-hidden="true">₿</div>
-        <h3>Cryptocurrency</h3>
-        <p>KMI is preparing a third-party cryptocurrency giving path designed so donors do not send crypto to wallet addresses published directly on this website.</p>
+        <h3>Cryptocurrency <span class="mini">• Coming soon</span></h3>
+        <p>KMI is preparing a third-party cryptocurrency giving path designed so donors do not send crypto to wallet addresses published directly on this website. Crypto giving is not active yet.</p>
         <a class="btn ghost" href="crypto-donations.html">Crypto Giving Information</a>
       </article>
       <article class="card path-card">
@@ -71,7 +72,24 @@
     </div>
   </section>
 
-  <section class="section alt">
+  <section class="section alt" id="give-online">
+    <div class="container grid-2">
+      <div>
+        <div class="eyebrow">Secure online giving</div>
+        <h2>Give directly through KMI’s Givebutter campaign.</h2>
+        <p class="lead">Your payment details are processed by Givebutter. KMI’s public website does not store your card or bank credentials.</p>
+        <p class="muted">If the embedded form is temporarily unavailable, the Donate Now button will open KMI’s Givebutter campaign directly.</p>
+      </div>
+      <article class="card">
+        <h3>Make a gift</h3>
+        <div data-givebutter-form aria-live="polite">
+          <a class="btn gold" href="https://givebutter.com/support-mission-outreach-and-community-care-uq1gzf" target="_blank" rel="noopener noreferrer">Donate Now</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container grid-2">
       <div>
         <div class="eyebrow">Stewardship and trust</div>
@@ -100,5 +118,6 @@
   </div>
 </footer>
 <script src="assets/app.js"></script>
+<script src="assets/givebutter.js"></script>
 </body>
 </html>
