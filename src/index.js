@@ -10,6 +10,13 @@ const PUBLIC_ORIGINS = new Set([
   'https://www.kingdommissionsglobal.org'
 ]);
 
+const PRIVATE_COMPATIBILITY_PATHS = new Set([
+  '/crm.html',
+  '/plans.html',
+  '/timeline.html',
+  '/brochure.html'
+]);
+
 const BASE_SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
@@ -68,9 +75,15 @@ function publicGivingReady(env) {
   );
 }
 
-async function secureAssetResponse(response) {
+async function secureAssetResponse(response, pathname) {
   const headers = new Headers(response.headers);
   Object.entries(BASE_SECURITY_HEADERS).forEach(([name, value]) => headers.set(name, value));
+
+  if (PRIVATE_COMPATIBILITY_PATHS.has(pathname)) {
+    headers.set('Cache-Control', 'no-store, private');
+    headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+  }
+
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
@@ -131,7 +144,7 @@ export default {
     }
 
     if (env.ASSETS) {
-      return secureAssetResponse(await env.ASSETS.fetch(request));
+      return secureAssetResponse(await env.ASSETS.fetch(request), url.pathname);
     }
 
     return json({ ok: false, error: 'Not found.' }, 404);
