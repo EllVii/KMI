@@ -24,18 +24,19 @@
 <body data-page="connect">
 <header class="site-header">
   <div class="container navbar">
-    <a class="brand" href="index.html"><img src="assets/logo.jpg?v=clean2" alt="Kingdom Missions International logo"></a>
+    <a class="brand" href="index.html" aria-label="Kingdom Missions International home"><img src="assets/logo.jpg?v=clean2" alt="Kingdom Missions International logo"></a>
     <nav class="nav-links" aria-label="Primary navigation">
       <a data-nav="home" href="index.html">Home</a>
       <a data-nav="about" href="about.html">About Us</a>
       <a data-nav="resources" href="resources.html">Resources</a>
       <a data-nav="edu" href="edu.html">Education</a>
       <a data-nav="outreach" href="outreach.html">Outreach</a>
+      <a data-nav="give" href="give.html">Give</a>
       <a data-nav="connect" class="nav-primary-action" href="connect.html">Connect</a>
     </nav>
   </div>
 </header>
-<main>
+<main id="main-content">
   <section class="page-hero">
     <div class="container page-title-wrap">
       <div>
@@ -60,29 +61,29 @@
     <div class="container section-heading">
       <div class="eyebrow">Choose your next step</div>
       <h2>How would you like to connect?</h2>
-      <p class="muted">Email KMI with the subject that best fits your request so the ministry can understand why you are reaching out.</p>
+      <p class="muted">Email KMI with the subject that best fits your request so the ministry can understand why you are reaching out. If you are not sure, choose the closest option; you do not need to know a department or program name.</p>
     </div>
     <div class="container grid-2">
       <article class="card" id="get-help">
-        <div class="icon">🧭</div>
+        <div class="icon" aria-hidden="true">🧭</div>
         <h3>Request Resource Guidance</h3>
         <p>Ask about housing referrals, food support, community resources, biblical counseling, life coaching, or another need.</p>
         <a class="btn gold" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Resource%20Guidance%20Request">Get Help</a>
       </article>
       <article class="card" id="volunteer">
-        <div class="icon">🙌</div>
+        <div class="icon" aria-hidden="true">🙌</div>
         <h3>Volunteer With KMI</h3>
         <p>Share your interest in food distribution, community outreach, fellowship, teaching, administration, or mission support.</p>
         <a class="btn ghost" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Volunteer%20Interest">Volunteer</a>
       </article>
       <article class="card" id="partner">
-        <div class="icon">🤝</div>
+        <div class="icon" aria-hidden="true">🤝</div>
         <h3>Become a Community Partner</h3>
         <p>Connect your church, ministry, nonprofit, school, business, or community program with KMI for cooperative service.</p>
         <a class="btn ghost" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Community%20Partnership">Partner With KMI</a>
       </article>
       <article class="card" id="education">
-        <div class="icon">🎓</div>
+        <div class="icon" aria-hidden="true">🎓</div>
         <h3>Ask About Education</h3>
         <p>Request information about faith-based degree pathways, chaplaincy, biblical counseling, and certification opportunities.</p>
         <a class="btn ghost" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Education%20Inquiry">Education Inquiry</a>
@@ -90,7 +91,20 @@
     </div>
   </section>
 
-  <section class="section alt" id="contact">
+  <section class="section alt" aria-labelledby="what-happens-next">
+    <div class="container section-heading">
+      <div class="eyebrow">Customer-service path</div>
+      <h2 id="what-happens-next">What happens after you choose a path?</h2>
+      <p class="muted">The goal is to make the next step predictable without promising an outcome that depends on program availability or the nature of the request.</p>
+    </div>
+    <div class="container grid-3">
+      <article class="card"><div class="icon" aria-hidden="true">1️⃣</div><h3>Choose the closest reason</h3><p>Select help, volunteering, partnership, education, or general contact. The email subject is prepared for you.</p></article>
+      <article class="card"><div class="icon" aria-hidden="true">2️⃣</div><h3>Share the useful details</h3><p>Include enough information for KMI to understand your question, organization, need, or interest without sending highly sensitive information by ordinary email.</p></article>
+      <article class="card"><div class="icon" aria-hidden="true">3️⃣</div><h3>KMI reviews the request</h3><p>KMI can then respond with the appropriate next step, information, conversation, or referral based on the request and current availability.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
     <div class="container grid-2">
       <div>
         <div class="eyebrow">General contact</div>
