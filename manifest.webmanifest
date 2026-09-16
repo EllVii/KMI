@@ -1,12 +1,17 @@
 {
+  "id": "./",
   "name": "Kingdom Missions International",
   "short_name": "KMI",
   "description": "Kingdom Missions International community resources, education, outreach, giving, and connection pathways.",
-  "start_url": "./index.html",
+  "lang": "en-US",
+  "dir": "ltr",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#f7f2e7",
   "theme_color": "#2f271c",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "assets/logo.jpg?v=clean2",

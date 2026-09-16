@@ -10,29 +10,51 @@ const PUBLIC_ORIGINS = new Set([
   'https://www.kingdommissionsglobal.org'
 ]);
 
+const PRIVATE_COMPATIBILITY_PATHS = new Set([
+  '/crm.html',
+  '/plans.html',
+  '/timeline.html',
+  '/brochure.html'
+]);
+
+const BASE_SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
+};
+
 function corsHeaders(request) {
   const origin = request.headers.get('Origin');
-  return {
-    'Access-Control-Allow-Origin': PUBLIC_ORIGINS.has(origin) ? origin : 'https://ellvii.github.io',
-    'Vary': 'Origin',
+  const headers = {
+    Vary: 'Origin',
     'Cache-Control': 'no-store'
   };
+
+  if (origin && PUBLIC_ORIGINS.has(origin)) {
+    headers['Access-Control-Allow-Origin'] = origin;
+  }
+
+  return headers;
+}
+
+function withSecurityHeaders(headers = {}) {
+  return { ...BASE_SECURITY_HEADERS, ...headers };
 }
 
 function json(data, status = 200, headers = {}) {
   return Response.json(data, {
     status,
-    headers: { 'Cache-Control': 'no-store', ...headers }
+    headers: withSecurityHeaders({ 'Cache-Control': 'no-store', ...headers })
   });
 }
 
 function methodNotAllowed(allowed) {
   return new Response('Method Not Allowed', {
     status: 405,
-    headers: {
+    headers: withSecurityHeaders({
       Allow: allowed.join(', '),
       'Cache-Control': 'no-store'
-    }
+    })
   });
 }
 
@@ -45,6 +67,30 @@ function hasWidgetLoader(env) {
   return /widgets\.givebutter\.com/i.test(combined);
 }
 
+function publicGivingReady(env) {
+  return Boolean(
+    env.KMI_MAIN_DONATION_BUTTON
+    && env.KMI_MAIN_DONATION_FORM
+    && hasWidgetLoader(env)
+  );
+}
+
+async function secureAssetResponse(response, pathname) {
+  const headers = new Headers(response.headers);
+  Object.entries(BASE_SECURITY_HEADERS).forEach(([name, value]) => headers.set(name, value));
+
+  if (PRIVATE_COMPATIBILITY_PATHS.has(pathname)) {
+    headers.set('Cache-Control', 'no-store, private');
+    headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+  }
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -54,13 +100,7 @@ export default {
       return json({
         ok: true,
         service: 'KMI backend',
-        givebutter: {
-          api: Boolean(env.GIVEBUTTER_API_KEY),
-          webhook_secret: Boolean(env.GIVEBUTTER_WEBHOOK_SECRET),
-          donation_button: Boolean(env.KMI_MAIN_DONATION_BUTTON),
-          donation_form: Boolean(env.KMI_MAIN_DONATION_FORM),
-          widget_library: hasWidgetLoader(env)
-        }
+        public_giving: publicGivingReady(env) ? 'ready' : 'configuration-required'
       });
     }
 
@@ -68,11 +108,11 @@ export default {
       if (request.method === 'OPTIONS') {
         return new Response(null, {
           status: 204,
-          headers: {
+          headers: withSecurityHeaders({
             ...corsHeaders(request),
             'Access-Control-Allow-Methods': 'GET, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type'
-          }
+          })
         });
       }
       if (request.method !== 'GET') return methodNotAllowed(['GET', 'OPTIONS']);
@@ -90,6 +130,8 @@ export default {
       );
     }
 
+    // Public proxy remains deliberately limited to non-sensitive fundraising metadata.
+    // Donor, transaction, payout, recurring-plan, and webhook data must never use this route.
     if (url.pathname === '/api/givebutter') {
       if (request.method !== 'GET') return methodNotAllowed(['GET']);
       return givebutterApiGet(context);
@@ -101,7 +143,9 @@ export default {
       return methodNotAllowed(['GET', 'POST']);
     }
 
-    if (env.ASSETS) return env.ASSETS.fetch(request);
+    if (env.ASSETS) {
+      return secureAssetResponse(await env.ASSETS.fetch(request), url.pathname);
+    }
 
     return json({ ok: false, error: 'Not found.' }, 404);
   }
