@@ -4,7 +4,7 @@ const scriptures = {
   resources: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
   edu: ['Let the wise hear and increase in learning.', 'Proverbs 1:5'],
   outreach: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
-  fellowship: ['They devoted themselves to the apostles’ teaching and to fellowship, to the breaking of bread and to prayer.', 'Acts 2:42']
+  fellowship: ['Even so faith, if it hath not works, is dead, being alone.', 'James 2:17 (KJV)'],
   ministries: ['There are different kinds of service, but the same Lord.', '1 Corinthians 12:5'],
   give: ['Each of you should give what you have decided in your heart to give.', '2 Corinthians 9:7'],
   crypto: ['Each of you should give what you have decided in your heart to give.', '2 Corinthians 9:7'],
