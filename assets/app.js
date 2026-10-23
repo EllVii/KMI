@@ -40,7 +40,7 @@ const seoPages = {
     path: '/about.html',
     title: 'About KMI Las Vegas | Christian Mission, Leaders & Values',
     description: 'Learn about Kingdom Missions International in Las Vegas, servant leaders Marc and Helen, KMI’s Christian mission, vision, beliefs, values, and community-service focus.',
-    image: '/assets/media/gallery-mission-relationship.webp',
+    image: '/assets/media/IMG_20261023_132922.png',
     schemaType: 'AboutPage',
     index: true
   },
