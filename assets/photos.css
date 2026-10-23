@@ -48,3 +48,6 @@
 /* Leadership portraits on the About Us page */
 .leader-bio-photo{margin:0 0 18px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--cream)}
 .leader-bio-photo img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
+
+/* Keep the joint leadership portrait balanced within its full-width card. */
+.couple-bio-photo{width:min(100%,560px);margin:0 auto 22px}
