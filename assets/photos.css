@@ -72,6 +72,7 @@
 .fellowship-scripture .scripture-reference a{text-underline-offset:4px}
 .fellowship-scripture .scripture-reflection{max-width:67ch;margin:0 auto;color:var(--muted)}
 
-/* About Us: show Marc and his son's complete photo without cropping and explain the relationship. */
-.page-photo.compact.about-family-photo img{height:auto;max-height:520px;object-fit:contain;background:#eee5d9}
-.page-photo.about-family-photo .photo-credit{position:static;display:block;max-width:100%;margin:0;padding:12px 18px;background:var(--cream);color:var(--soil);border-radius:0;font-size:13px;font-weight:800;line-height:1.45;text-align:center;backdrop-filter:none}
+/* About Us: centered leadership portrait with natural proportions and a readable caption. */
+.page-photo.compact.about-leadership-photo{width:min(100%,640px);margin-inline:auto}
+.page-photo.compact.about-leadership-photo img{display:block;width:100%;height:auto;max-height:none;object-fit:contain;background:var(--cream)}
+.page-photo.about-leadership-photo .photo-credit{position:static;display:block;max-width:100%;margin:0;padding:12px 18px;background:var(--cream);color:var(--soil);border-radius:0;font-size:13px;font-weight:800;line-height:1.45;text-align:center;backdrop-filter:none}
