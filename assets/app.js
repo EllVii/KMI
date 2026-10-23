@@ -4,6 +4,7 @@ const scriptures = {
   resources: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
   edu: ['Let the wise hear and increase in learning.', 'Proverbs 1:5'],
   outreach: ['And do not forget to do good and to share with others, for with such sacrifices God is pleased.', 'Hebrews 13:16'],
+  fellowship: ['They devoted themselves to the apostles’ teaching and to fellowship, to the breaking of bread and to prayer.', 'Acts 2:42']
   ministries: ['There are different kinds of service, but the same Lord.', '1 Corinthians 12:5'],
   give: ['Each of you should give what you have decided in your heart to give.', '2 Corinthians 9:7'],
   crypto: ['Each of you should give what you have decided in your heart to give.', '2 Corinthians 9:7'],
@@ -23,8 +24,8 @@ const siteUrl = 'https://ellvii.github.io/KMI';
 const organizationName = 'Kingdom Missions International';
 const organizationEmail = 'info@KingdomMissionsGlobal.org';
 const legalName = 'Kingdom Missions Intnl Overseer & His Successors A Corporation Sole';
-const enhancedPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'crypto', 'connect', 'faq', 'support', 'contact', 'media', 'privacy']);
-const assistantPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'ministries', 'give', 'connect', 'faq', 'media']);
+const enhancedPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'fellowship', 'ministries', 'give', 'crypto', 'connect', 'faq', 'support', 'contact', 'media', 'privacy']);
+const assistantPages = new Set(['home', 'about', 'resources', 'edu', 'outreach', 'fellowship', 'ministries', 'give', 'connect', 'faq', 'media']);
 
 const seoPages = {
   home: {
@@ -64,6 +65,14 @@ const seoPages = {
     title: 'Christian Outreach, Food Relief & Volunteer Opportunities | KMI',
     description: 'See KMI Christian outreach through Las Vegas food relief, volunteer service, community partnerships, fellowship, teaching, Los Angeles outreach, and international missions.',
     image: '/assets/media/gallery-youth-outreach.webp',
+    schemaType: 'CollectionPage',
+    index: true
+  },
+  fellowship: {
+    path: '/fellowship.html',
+    title: 'KMI Fellowship & Community Gatherings | Kingdom Missions International',
+    description: 'Explore Christian fellowship, community gatherings, shared faith, and the relationships that strengthen Kingdom Missions International’s mission.',
+    image: '/assets/media/IMG_20261023_132932.png',
     schemaType: 'CollectionPage',
     index: true
   },
@@ -344,6 +353,7 @@ if (nav && enhancedPages.has(page)) {
     ['resources', 'resources.html', 'Resources'],
     ['edu', 'edu.html', 'Education'],
     ['outreach', 'outreach.html', 'Outreach'],
+    ['fellowship', 'fellowship.html', 'Fellowship'],
     ['give', 'give.html', 'Give'],
     ['connect', 'connect.html', 'Connect']
   ];
@@ -417,6 +427,7 @@ if (footerContainer && enhancedPages.has(page) && !footerContainer.querySelector
     <a href="resources.html">Community Resources</a>
     <a href="edu.html">Education</a>
     <a href="outreach.html">Outreach & Volunteering</a>
+    <a href="fellowship.html">Fellowship & Community</a>
     <a href="ministry-areas.html">Ministry Areas</a>
     <a href="give.html">Give</a>
     <a href="faq.html">Questions & Answers</a>
@@ -471,3 +482,14 @@ if (canRegisterServiceWorker) {
     });
   });
 }
+
+/* Load fallback images if newly prepared fellowship uploads are still pending. */
+document.querySelectorAll('img[data-fallback-src]').forEach((img) => {
+  img.addEventListener('error', () => {
+    const fallback = img.dataset.fallbackSrc;
+    if (!fallback) return;
+    img.removeAttribute('data-fallback-src');
+    if (img.dataset.fallbackAlt) img.alt = img.dataset.fallbackAlt;
+    img.src = fallback;
+  }, { once: true });
+});
