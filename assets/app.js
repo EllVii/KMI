@@ -72,7 +72,7 @@ const seoPages = {
     path: '/fellowship.html',
     title: 'KMI Fellowship & Community Gatherings | Kingdom Missions International',
     description: 'Explore Christian fellowship, community gatherings, shared faith, and the relationships that strengthen Kingdom Missions International’s mission.',
-    image: '/assets/media/IMG_20261023_132932.png',
+    image: '/assets/media/file_000000000fd081f8a8f6095179c18f50.jpg',
     schemaType: 'CollectionPage',
     index: true
   },
