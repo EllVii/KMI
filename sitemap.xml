@@ -37,6 +37,13 @@
     <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/gallery-youth-outreach.webp</image:loc><image:title>KMI Christian outreach, food relief, and volunteer service</image:title></image:image>
   </url>
   <url>
+    <loc>https://ellvii.github.io/KMI/fellowship.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://ellvii.github.io/KMI/assets/media/IMG_20261023_132932.png</image:loc><image:title>KMI community fellowship and ministry partnerships</image:title></image:image>
+  </url>
+  <url>
     <loc>https://ellvii.github.io/KMI/ministry-areas.html</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
