@@ -55,11 +55,11 @@
 /* Fellowship: warm editorial gallery with uncropped 4:3 outreach moments. */
 .fellowship-feature-photo{margin:0}
 .fellowship-feature-photo img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
-.fellowship-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.fellowship-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .fellowship-gallery .media-tile{min-width:0}
 .fellowship-gallery .media-tile img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center}
 #fellowship-moments{scroll-margin-top:125px}
-@media(max-width:750px){.fellowship-gallery{grid-template-columns:1fr}.fellowship-gallery .media-tile img{height:auto;aspect-ratio:4/3}}
+@media(max-width:900px){.fellowship-gallery{grid-template-columns:1fr}.fellowship-gallery .media-tile img{height:auto;aspect-ratio:4/3}}
 
 /* Scripture reading on the Fellowship page */
 .fellowship-scripture-section{padding-top:30px}
