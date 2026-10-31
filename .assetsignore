@@ -6,3 +6,5 @@ functions
 src
 *.md
 wrangler.jsonc
+# Retain original master in GitHub but never upload this >25 MiB video
+assets/media/community-gathering-loop.mp4
