@@ -1,4 +1,5 @@
 import { onRequestGet as givebutterApiGet } from '../functions/api/givebutter.js';
+import { config as inquiryConfig, submit as submitInquiry } from './crm-inquiry.js';
 import {
   onRequestGet as givebutterWebhookGet,
   onRequestPost as givebutterWebhookPost
@@ -128,6 +129,15 @@ export default {
         200,
         corsHeaders(request)
       );
+    }
+
+    if (url.pathname === '/api/crm/config') {
+      if (request.method !== 'GET') return methodNotAllowed(['GET']);
+      return inquiryConfig(env);
+    }
+    if (url.pathname === '/api/crm/inquiry') {
+      if (request.method !== 'POST') return methodNotAllowed(['POST']);
+      return submitInquiry(request, env);
     }
 
     // Public proxy remains deliberately limited to non-sensitive fundraising metadata.
