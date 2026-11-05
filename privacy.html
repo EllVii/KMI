@@ -4,14 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Website Privacy | Kingdom Missions International</title>
-  <meta name="description" content="Learn how the Kingdom Missions International public website handles website interactions, email contact, third-party donation processing, and service-provider data.">
-  <meta name="robots" content="index,follow">
+  <meta name="description" content="Learn how the KMI public website handles online inquiries, email contact, Cloudflare Turnstile verification, private CRM follow-up, third-party donation processing, and website infrastructure data.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
   <link rel="canonical" href="https://ellvii.github.io/KMI/privacy.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kingdom Missions International">
+  <meta property="og:title" content="Website Privacy | Kingdom Missions International">
+  <meta property="og:description" content="How KMI handles website inquiries, email contact, security verification, private follow-up, donations, and infrastructure data.">
+  <meta property="og:url" content="https://ellvii.github.io/KMI/privacy.html">
+  <meta property="og:image" content="https://ellvii.github.io/KMI/assets/media/home-hero-international-missions.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KMI Website Privacy">
+  <meta name="twitter:description" content="How Kingdom Missions International handles website inquiries, contact, donation processing, and infrastructure data.">
+  <meta name="twitter:image" content="https://ellvii.github.io/KMI/assets/media/home-hero-international-missions.webp">
   <link rel="icon" type="image/png" href="assets/ellvii-logo-dark-background.png?v=dark1">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-page="privacy">
-<header class="site-header"><div class="container navbar"><a class="brand" href="index.html" aria-label="Kingdom Missions International home"><img src="assets/logo.jpg?v=clean2" alt="Kingdom Missions International logo"></a><nav class="nav-links" aria-label="Primary navigation">
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="Kingdom Missions International home"><img src="assets/logo.jpg?v=clean2" alt="Kingdom Missions International logo"></a>
+    <nav class="nav-links" aria-label="Primary navigation">
       <a data-nav="home" href="index.html">Home</a>
       <a data-nav="about" href="about.html">About Us</a>
       <a data-nav="resources" href="resources.html">Resources</a>
@@ -20,18 +33,86 @@
       <a data-nav="fellowship" href="fellowship.html">Fellowship</a>
       <a data-nav="give" href="give.html">Give</a>
       <a data-nav="connect" class="nav-primary-action" href="connect.html">Connect</a>
-    </nav></div></header>
+    </nav>
+  </div>
+</header>
 <main id="main-content">
-  <section class="page-hero"><div class="container page-title-wrap"><div><div class="eyebrow">Website trust & privacy</div><h1>Website Privacy</h1><p class="lead">This page explains the public website's current data flow in plain language. It does not replace the privacy terms of third-party services used for donations or email.</p></div><div class="scripture-card" data-scripture-card></div></div></section>
-  <section class="section"><div class="container grid-2">
-    <article class="card"><h2>Public website</h2><p>KMI's public website is primarily informational. The current public pages do not ask visitors to create an account or enter card, bank, or cryptocurrency credentials into KMI-hosted forms.</p></article>
-    <article class="card"><h2>Email contact</h2><p>When you choose an email contact link, your message is handled by your email provider and the recipient's email provider. Do not send highly sensitive information by ordinary email.</p></article>
-    <article class="card"><h2>Online donations</h2><p>KMI uses Givebutter for approved online giving. Payment information entered into Givebutter is processed through Givebutter's donation experience rather than stored by the KMI public website.</p></article>
-    <article class="card"><h2>Website infrastructure</h2><p>KMI's website infrastructure may be delivered through hosting and security providers such as Cloudflare and GitHub during the transition to KMI's permanent hosting setup. Those providers may process technical request data needed to deliver and secure the site.</p></article>
-  </div></section>
-  <section class="section alt"><div class="container grid-2"><div><div class="eyebrow">Questions</div><h2>Ask before sharing sensitive information.</h2><p class="lead">If you are unsure whether information should be sent through email, a donation provider, or a future KMI support system, contact KMI first.</p></div><article class="card"><h3>Privacy inquiry</h3><p>Questions about the public website or current contact pathways can be sent to KMI.</p><a class="btn gold" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Website%20Privacy%20Inquiry">Contact KMI</a></article></div></section>
+  <section class="page-hero">
+    <div class="container page-title-wrap">
+      <div>
+        <div class="eyebrow">Website trust & privacy</div>
+        <h1>Website Privacy</h1>
+        <p class="lead">This page explains the current KMI public website data flow in plain language, including the optional secure inquiry form, email contact, donation processing, and infrastructure providers.</p>
+        <p class="mini"><strong>Reviewed:</strong> November 5, 2026</p>
+      </div>
+      <div class="scripture-card" data-scripture-card></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Public website</h2>
+        <p>KMI's public website is primarily informational. Visitors do not need a public KMI account to browse ministry information, resources, education, outreach, fellowship, giving information, or contact pathways.</p>
+      </article>
+      <article class="card">
+        <h2>Optional online inquiry</h2>
+        <p>When KMI's secure inquiry form is enabled, it may collect your name, email address, inquiry topic, message, and consent to use that information to respond. The form is hidden when the secure integration is not available.</p>
+        <p class="muted">Please do not submit financial account numbers, identification documents, medical histories, passwords, or emergency information.</p>
+      </article>
+      <article class="card">
+        <h2>Security verification</h2>
+        <p>The optional inquiry form uses Cloudflare Turnstile to help reduce automated abuse. The website verifies the Turnstile result before forwarding a valid inquiry to KMI's private follow-up system.</p>
+      </article>
+      <article class="card">
+        <h2>Private follow-up workspace</h2>
+        <p>Validated online inquiries are forwarded server-to-server to KMI's private CRM follow-up workspace. They are not published on the public website. KMI uses the submitted information to review and respond to the inquiry.</p>
+      </article>
+      <article class="card">
+        <h2>Email contact</h2>
+        <p>If the online form is unavailable, or if you prefer email, the website provides direct email links. Messages sent by email are handled by your email provider and the recipient's email provider rather than the website inquiry bridge.</p>
+      </article>
+      <article class="card">
+        <h2>Online donations</h2>
+        <p>KMI uses Givebutter for approved online giving. Payment details entered into Givebutter are processed through Givebutter's donation experience and are not stored by KMI's public website.</p>
+      </article>
+      <article class="card">
+        <h2>Website infrastructure</h2>
+        <p>KMI's website may be delivered through providers such as Cloudflare and GitHub. Those providers may process technical request information needed to deliver, secure, monitor, and troubleshoot the website.</p>
+      </article>
+      <article class="card">
+        <h2>Retention and privacy requests</h2>
+        <p>The public website does not publish a universal retention period for every inquiry or provider record. If you have a question about information you submitted, correction, deletion, or the current handling process, contact KMI directly so the request can be reviewed in context.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container grid-2">
+      <div>
+        <div class="eyebrow">Use the right channel</div>
+        <h2>Do not use the website as an emergency service.</h2>
+        <p class="lead">For urgent safety, medical, housing, or food emergencies, contact the appropriate emergency service or established local provider directly.</p>
+      </div>
+      <article class="card">
+        <h3>Privacy or website question</h3>
+        <p>Questions about the public website, the inquiry form, or current contact pathways can be sent to KMI.</p>
+        <a class="btn gold" href="mailto:info@KingdomMissionsGlobal.org?subject=KMI%20Website%20Privacy%20Inquiry">Contact KMI</a>
+        <a class="btn ghost" href="connect.html" style="margin-top:10px">KMI Connect</a>
+      </article>
+    </div>
+  </section>
 </main>
-<footer class="footer"><div class="container footer-grid"><div><h3 style="color:#f8e8a5">Kingdom Missions International</h3><p class="mini"><a href="mailto:info@KingdomMissionsGlobal.org">info@KingdomMissionsGlobal.org</a></p></div><div><p class="mini">Website development and technical SEO by Ell Vii's Automations.</p></div></div></footer>
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h3 style="color:#f8e8a5">Kingdom Missions International</h3>
+      <p class="mini">Faith-centered community ministry based in Las Vegas, Nevada.</p>
+      <p class="mini"><a href="mailto:info@KingdomMissionsGlobal.org">info@KingdomMissionsGlobal.org</a></p>
+    </div>
+    <div><p class="mini">Website development and technical SEO by Ell Vii's Automations.</p></div>
+  </div>
+</footer>
 <script src="assets/app.js"></script>
 </body>
 </html>
