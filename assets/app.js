@@ -128,7 +128,7 @@ const seoPages = {
   privacy: {
     path: '/privacy.html',
     title: 'Website Privacy | Kingdom Missions International',
-    description: 'Learn how the KMI public website handles website interactions, email contact, third-party donation processing, and hosting-provider data.',
+    description: 'Learn how the KMI public website handles online inquiries, email contact, Cloudflare Turnstile verification, private CRM follow-up, third-party donation processing, and website infrastructure data.',
     image: '/assets/media/home-hero-international-missions.webp',
     schemaType: 'WebPage',
     index: true
