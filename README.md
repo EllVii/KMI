@@ -1,34 +1,75 @@
-# Kingdom Mission International Prototype
+# Kingdom Missions International Website
 
-Static prototype for Kingdom Mission International.
+Production-oriented public website and PWA foundation for Kingdom Missions International (KMI), a Las Vegas-based Christian ministry.
 
-## Included
+## Public experience
 
-- Home
-- About
-- Resources
-- Edu / Loving to Learn
-- Outreach
-- Timeline
-- Plans / Monthly CRM support
+The site currently includes:
 
-## Prototype notes
+- Home and About
+- Community Resources
+- Faith-Based Education
+- Outreach and Fellowship
+- Ministry Areas
+- Giving through Givebutter
+- Questions & Answers
+- Media & Partnerships
+- KMI Connect
+- Website Privacy
+- Installable PWA behavior for public informational content
 
-This is a working prototype only. Donation/payment processing should use a trusted third-party provider such as Zeffy, Square, PayPal, or Stripe. No card data should be stored on this website.
+## Current architecture
 
-Final 508(c)(1)(A), religious trust, nonprofit, tax, and counseling language should be reviewed by qualified legal/tax professionals before launch.
+- Static HTML/CSS/JavaScript public experience
+- Cloudflare Worker entry point in `src/index.js`
+- Static assets served through the Worker `ASSETS` binding
+- Givebutter donation widgets and webhook transport
+- Optional website-to-private-CRM inquiry bridge
+- Cloudflare Turnstile verification before enabled online inquiries are forwarded
+- Email fallback when the secure online inquiry path is unavailable
+- GitHub Actions syntax validation for the public inquiry frontend/backend scripts
 
-Built by Ell Vii's Automations.
+## Public inquiry safety boundary
+
+The public `connect.html` form is progressive enhancement. It remains hidden unless the required Worker configuration is present and Turnstile can load.
+
+Required Worker configuration:
+
+- `TURNSTILE_SITE_KEY`
+- `TURNSTILE_SECRET_KEY`
+- `KMI_CRM_URL`
+- `KMI_CRM_INGEST_TOKEN`
+
+The browser posts only to the website's `/api/crm/inquiry` route. The Worker validates the request and Turnstile result, then forwards the approved inquiry server-side to the private CRM integration endpoint. The CRM ingest token must never be placed in public HTML, browser JavaScript, or committed configuration.
+
+The existing email links remain available if the online integration is disabled or unavailable.
+
+## Protected boundary
+
+Do not treat `noindex` as authentication. Staff/admin/C-Panel access, private CRM permissions, sessions, roles, tokens, donor records, and other protected operations require their own authenticated boundary.
+
+Public website changes must not silently alter those systems.
+
+## Search and domain status
+
+The current repository still uses the GitHub Pages URLs in canonical tags, structured data, robots.txt, and sitemap.xml.
+
+`kingdommissionsglobal.org` is already referenced by the secure inquiry architecture, but the search-authoritative hostname should not be switched piecemeal. When the permanent custom-domain cutover is externally verified, update canonicals, sitemap, robots, structured data, social URLs, Search Console, redirects, app association, and backlink targets together.
+
+## Privacy and payments
+
+- Do not store card, bank, or cryptocurrency credentials in the KMI public site.
+- Givebutter handles approved online donation payment entry.
+- The optional inquiry form may collect contact and message information for private follow-up when enabled.
+- See `privacy.html` for the current public data-flow explanation.
+- Do not submit highly sensitive or emergency information through the ordinary website inquiry form.
+
+## Legal / program-language note
+
+Final claims involving 508(c)(1)(A), religious organization status, tax treatment, counseling services, accreditation, education credentials, or other regulated/legal representations should be reviewed by qualified professionals and kept synchronized with KMI's approved public statements.
+
+## Development
+
+Built and maintained with technology support from Ell Vii's Automations.
+
 Website: https://ellviisautomations.com
-## Website to KMI-crm inquiries
-
-The public `connect.html` now has an optional, progressive-enhancement online inquiry form. Its existing email links continue to work. **The form stays hidden** until all four website Worker environment values below are configured and Turnstile can load:
-
-- `TURNSTILE_SITE_KEY` (public website Worker variable, restricted to `kingdommissionsglobal.org` and `www.kingdommissionsglobal.org` in Cloudflare Turnstile).
-- `TURNSTILE_SECRET_KEY` (Worker secret, never in Git).
-- `KMI_CRM_URL` (the HTTPS origin of the deployed `kmi-crm` Worker).
-- `KMI_CRM_INGEST_TOKEN` (Worker secret, same value as the CRM Worker's secret `KMI_WEBSITE_SYNC_TOKEN`).
-
-The public browser posts only to this website's `/api/crm/inquiry`. The server checks Turnstile's siteverify endpoint including the validated hostname and forwards the validated request with the private shared token to `/api/integrations/website` on the CRM. Do **not** put the shared secret in JS, HTML or `wrangler.jsonc`. For same-account Worker-to-Worker communication, configure a Cloudflare service binding named `CRM_SERVICE` when the target CRM Worker exists; the bridge supports it and otherwise uses HTTPS Worker origin fetch. Test the service binding/route before revealing the form. Do not enable until the CRM D1 schema and staff login are configured.
-
-These submissions become source-tagged CRM Incoming Records and are not public. Emails sent through existing `mailto:` links are **not** automatically captured; separate inbound-email ingestion is needed for that. The website and KMI-app do not share or replace each other's production D1 database.
