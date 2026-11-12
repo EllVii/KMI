@@ -20,7 +20,7 @@ const scriptures = {
 };
 
 const page = document.body.dataset.page || 'home';
-const siteUrl = 'https://ellvii.github.io/KMI';
+const siteUrl = 'https://kingdommissionsglobal.org';
 const organizationName = 'Kingdom Missions International';
 const organizationEmail = 'info@KingdomMissionsGlobal.org';
 const legalName = 'Kingdom Missions Intnl Overseer & His Successors A Corporation Sole';
