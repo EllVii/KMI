@@ -52,9 +52,13 @@ Public website changes must not silently alter those systems.
 
 ## Search and domain status
 
-The current repository still uses the GitHub Pages URLs in canonical tags, structured data, robots.txt, and sitemap.xml.
+`https://kingdommissionsglobal.org` is KMI's permanent authoritative public domain.
 
-`kingdommissionsglobal.org` is already referenced by the secure inquiry architecture, but the search-authoritative hostname should not be switched piecemeal. When the permanent custom-domain cutover is externally verified, update canonicals, sitemap, robots, structured data, social URLs, Search Console, redirects, app association, and backlink targets together.
+Production canonicals, structured data, social metadata, robots.txt, and sitemap.xml are being consolidated on that apex hostname. `https://www.kingdommissionsglobal.org` remains an accepted alternate hostname for infrastructure/security verification, while the apex domain is the preferred search identity.
+
+The legacy GitHub Pages project URL should be treated as a repository-hosted fallback/legacy location rather than the primary search identity. Do not split future SEO authority between the GitHub Pages URL and the permanent KMI domain.
+
+When domain routing is fully verified externally, complete Search Console site-move tasks and any available legacy-host redirects without changing the protected CRM, Turnstile, payment, or authentication boundaries.
 
 ## Privacy and payments
 
