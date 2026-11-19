@@ -5,6 +5,25 @@
   let captchaToken = '';
   let widgetId = null;
   const say = (message) => { status.textContent = message; };
+  const validTopics = new Set(['Resource Guidance', 'Volunteer', 'Community Partnership', 'Education', 'General Inquiry']);
+  document.querySelectorAll('[data-inquiry-topic]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const topic = link.dataset.inquiryTopic;
+      if (!validTopics.has(topic)) return;
+      const select = form.elements.topic;
+      if (select) select.value = topic;
+      const heading = document.getElementById('online-inquiry-heading');
+      if (!form.hidden) {
+        event.preventDefault();
+        heading?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const message = form.elements.message;
+        if (message) setTimeout(() => message.focus({ preventScroll: true }), 250);
+        say('You selected ' + topic + '. Complete the form to send your inquiry to KMI.');
+      } else {
+        say('The online form is currently unavailable. Please email info@KingdomMissionsGlobal.org.');
+      }
+    });
+  });
   async function initialize() {
     try {
       const response = await fetch('/api/crm/config', { cache: 'no-store' });
@@ -46,6 +65,7 @@
       if (!response.ok) throw new Error(result.error || 'Could not send your inquiry.');
       say('Thank you. Your inquiry has been received. Reference: ' + result.reference);
       form.reset();
+      form.elements.topic.value = 'General Inquiry';
     } catch (error) {
       say(error.message + ' You can also use the email links above.');
     } finally {
