@@ -4,6 +4,7 @@
   const status = document.getElementById('kmi-inquiry-status');
   let captchaToken = '';
   let widgetId = null;
+  let pendingReference = null, pendingPayload = null;
   const say = (message) => { status.textContent = message; };
   const validTopics = new Set(['Resource Guidance', 'Volunteer', 'Community Partnership', 'Education', 'General Inquiry']);
   document.querySelectorAll('[data-inquiry-topic]').forEach((link) => {
@@ -55,6 +56,9 @@
     say('Sending your inquiry...');
     const data = Object.fromEntries(new FormData(form).entries());
     data.contact_consent = Boolean(form.elements.contact_consent.checked);
+    const signature = JSON.stringify(data);
+    if(!pendingReference||signature!==pendingPayload){pendingReference=crypto.randomUUID();pendingPayload=signature;}
+    data.client_reference=pendingReference;
     data.turnstile_token = captchaToken;
     try {
       const response = await fetch('/api/crm/inquiry', {
@@ -64,6 +68,7 @@
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Could not send your inquiry.');
       say('Thank you. Your inquiry has been received. Reference: ' + result.reference);
+      pendingReference=null;pendingPayload=null;
       form.reset();
       form.elements.topic.value = 'General Inquiry';
     } catch (error) {
