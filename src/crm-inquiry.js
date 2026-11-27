@@ -27,7 +27,9 @@ export async function submit(request,env){
  if(!verified.success||!allowedHost.has(verified.hostname))return reply({error:"Please complete the security verification again."},403);
  const endpoint=new URL(env.KMI_CRM_URL);
  if(endpoint.protocol!=="https:"||endpoint.username||endpoint.password||endpoint.search||endpoint.hash||endpoint.pathname!=="/")return reply({error:"Inquiry routing is not available."},503);
- const ref=crypto.randomUUID();
+ const supplied=b.client_reference;
+ if(supplied!==undefined&&(typeof supplied!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(supplied)))return reply({error:'Invalid submission reference.'},422);
+ const ref=supplied||crypto.randomUUID();
  let result;
  try{
   const payload=JSON.stringify({reference:ref,name,email,topic,message,contact_consent:true});
