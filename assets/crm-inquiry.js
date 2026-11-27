@@ -56,6 +56,7 @@
     say('Sending your inquiry...');
     const data = Object.fromEntries(new FormData(form).entries());
     data.contact_consent = Boolean(form.elements.contact_consent.checked);
+    delete data['cf-turnstile-response'];
     const signature = JSON.stringify(data);
     if(!pendingReference||signature!==pendingPayload){pendingReference=crypto.randomUUID();pendingPayload=signature;}
     data.client_reference=pendingReference;
